@@ -45,7 +45,53 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
+// Для мобильных устройств: обработка кликов по карточкам
+document.addEventListener('DOMContentLoaded', function() {
+    const coachCards = document.querySelectorAll('.coach__inner');
+    
+    coachCards.forEach(card => {
+        // Проверяем, мобильное ли устройство
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
+        
+        if (isTouchDevice) {
+            let isFlipped = false;
+            
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Закрываем другие открытые карточки
+                if (!isFlipped) {
+                    coachCards.forEach(otherCard => {
+                        if (otherCard !== card && otherCard.classList.contains('flipped')) {
+                            otherCard.classList.remove('flipped');
+                            otherCard.style.transform = 'rotateY(0deg)';
+                        }
+                    });
+                }
+                
+                // Переключаем состояние текущей карточки
+                isFlipped = !isFlipped;
+                
+                if (isFlipped) {
+                    this.classList.add('flipped');
+                    this.style.transform = 'rotateY(180deg)';
+                } else {
+                    this.classList.remove('flipped');
+                    this.style.transform = 'rotateY(0deg)';
+                }
+            });
+            
+            // Закрыть карточку при клике вне ее
+            document.addEventListener('click', function(e) {
+                if (!card.contains(e.target) && isFlipped) {
+                    card.classList.remove('flipped');
+                    card.style.transform = 'rotateY(0deg)';
+                    isFlipped = false;
+                }
+            });
+        }
+    });
+});
 
 // Модальное окно для записи
 document.addEventListener('DOMContentLoaded', function () {
