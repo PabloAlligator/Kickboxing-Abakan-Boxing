@@ -303,12 +303,11 @@ body {
     display: flex;
     align-items: center;
     background:
-        linear-gradient(to right,
-            rgba(0, 0, 0, 1) 0%,
+        linear-gradient(to top,
+            #09090b 0%,
             rgba(0, 0, 0, 0.8) 20%,
             rgba(0, 0, 0, 0.4) 40%,
             rgba(0, 0, 0, 0) 60%),
-
         url('../img/hero4k.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -433,8 +432,7 @@ body {
 @media (min-width: 1440px) and (max-width: 1720px) {
     .hero {
         background:
-            linear-gradient(to right,
-                rgba(0, 0, 0, 1) 0%,
+            linear-gradient(to top rgba(0, 0, 0, 1) 0%,
                 rgba(0, 0, 0, 0.8) 15%,
                 rgba(0, 0, 0, 0.4) 35%,
                 rgba(0, 0, 0, 0) 55%),
@@ -484,7 +482,7 @@ body {
 @media (min-width: 1024px) and (max-width: 1439px) {
     .hero {
         background:
-            linear-gradient(to right,
+            linear-gradient(to top,
                 rgba(0, 0, 0, 1) 0%,
                 rgba(0, 0, 0, 0.8) 10%,
                 rgba(0, 0, 0, 0.4) 30%,
@@ -550,11 +548,11 @@ body {
 @media (min-width: 768px) and (max-width: 1023px) {
     .hero {
         background:
-            linear-gradient(to bottom,
-                rgba(0, 0, 0, 0.8) 0%,
-                rgba(0, 0, 0, 0.6) 30%,
-                rgba(0, 0, 0, 0.4) 50%,
-                rgba(0, 0, 0, 0.2) 70%),
+            linear-gradient(to top,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(0, 0, 0, 0.8) 10%,
+                rgba(0, 0, 0, 0.4) 30%,
+                rgba(0, 0, 0, 0) 50%),
             url('../img/hero4k.png');
         background-repeat: no-repeat;
         background-size: cover;
@@ -631,7 +629,7 @@ body {
 @media (min-width: 480px) and (max-width: 767px) {
     .hero {
         background:
-            linear-gradient(to bottom,
+            linear-gradient(to top,
                 rgba(0, 0, 0, 0.9) 0%,
                 rgba(0, 0, 0, 0.7) 40%,
                 rgba(0, 0, 0, 0.5) 60%),
@@ -1179,7 +1177,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 500px;
+    margin-top: 100px;
 
     &-text {
         display: flex;
@@ -1334,7 +1332,7 @@ body {
 @media (min-width: 1440px) and (max-width: 1720px) {
     .about {
         max-width: 100%;
-        margin-top: 400px;
+        margin-top: 100px;
         padding: 0 24px;
 
         &-text {
@@ -1477,7 +1475,7 @@ body {
 @media (min-width: 768px) and (max-width: 1023px) {
     .about {
         max-width: 100%;
-        margin-top: 150px;
+        margin-top: 100px;
         flex-direction: column;
         gap: 60px;
         padding: 0 16px;
@@ -1584,7 +1582,7 @@ body {
 /* 480px - 767px */
 @media (min-width: 480px) and (max-width: 767px) {
     .about {
-        margin-top: 200px;
+        margin-top: 100px;
         flex-direction: column;
         gap: 50px;
         padding: 0 12px;
@@ -1593,10 +1591,13 @@ body {
             width: 100%;
             max-width: 500px;
             padding: 0;
+            // border: 1px solid red;
 
             &__title {
                 align-items: center;
                 justify-self: center;
+                // border: 1px solid red;
+                align-self: center;
 
                 h2 {
                     font-size: 36px;
