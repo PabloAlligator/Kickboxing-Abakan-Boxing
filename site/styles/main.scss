@@ -3929,127 +3929,12 @@ body {
             }
         }
 
-        // Увеличиваем кликабельную область на маленьких экранах
         a {
             min-height: 20px;
             line-height: 1.3;
         }
     }
 }
-
-/* Горизонтальная ориентация на мобильных */
-@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
-    .footer {
-        padding: 16px 0 8px 0;
-
-        &__inner {
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            text-align: left;
-            gap: 16px;
-        }
-
-        .footer-col__brand {
-            width: 100%;
-            text-align: center;
-        }
-
-        .footer-col__contacts,
-        .footer-col__links {
-            flex: 1;
-            min-width: 150px;
-            text-align: left;
-        }
-
-        .footer-col__links {
-            ul {
-                grid-template-columns: 1fr;
-                justify-items: start;
-            }
-        }
-    }
-}
-
-/* Темная тема оптимизация */
-@media (prefers-color-scheme: dark) and (max-width: 767px) {
-    .footer {
-        background: linear-gradient(180deg, rgba(5, 4, 10, 0) 0%, rgba(5, 4, 10, 0.25) 18%, rgba(10, 12, 22, 1) 100%);
-
-        a {
-            color: rgba($white, 0.6);
-
-            &:active {
-                color: $white;
-            }
-        }
-
-        &__bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-    }
-}
-
-/* Улучшение для устройств с высоким DPI */
-@media (max-width: 767px) and (-webkit-min-device-pixel-ratio: 2),
-(max-width: 767px) and (min-resolution: 192dpi) {
-    .footer {
-
-        &__bottom {
-            border-top-width: 0.5px;
-        }
-    }
-}
-
-/* Оптимизация для медленных соединений на мобильных */
-@media (max-width: 767px) {
-    .footer {
-        background: rgba(15, 18, 32, 1);
-        background: linear-gradient(180deg,
-                rgba(5, 4, 10, 0) 0%,
-                rgba(15, 18, 32, 0.3) 10%,
-                rgba(15, 18, 32, 1) 100%);
-
-        a {
-            will-change: color;
-        }
-    }
-}
-
-/* Доступность для мобильных */
-@media (max-width: 767px) {
-    .footer {
-        .footer-col__links {
-            li {
-                a {
-                    padding: 4px 0;
-                    min-height: 28px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-            }
-        }
-
-        .footer-col__contacts {
-            p {
-                a {
-                    padding: 2px 0;
-                    min-height: 24px;
-                    display: inline-flex;
-                    align-items: center;
-                }
-            }
-        }
-
-        a:focus {
-            outline: 2px solid $blue;
-            outline-offset: 2px;
-            border-radius: 2px;
-        }
-    }
-}
-
 
 /* Модальное окно */
 .modal {
