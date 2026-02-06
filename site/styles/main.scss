@@ -120,15 +120,6 @@ body {
             object-fit: cover;
             z-index: 10;
         }
-
-        // p {
-        //     font-family: $inter;
-        //     font-size: 11px;
-        //     color: $red;
-        //     letter-spacing: 1px;
-        //     margin: 0;
-        //     text-transform: uppercase;
-        // }
     }
 
     &-nav {
@@ -235,31 +226,29 @@ body {
 // adaptive burger menu
 
 @media (max-width: 1024px) {
-    @media (max-width: 1024px) {
-        .burger {
-            display: flex !important;
-            z-index: 1101;
-        }
 
-        .header-nav {
-            position: fixed;
-            inset: 0;
-            background: #09090b;
-            z-index: 1100;
-
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-
-            transition: transform 0.4s ease, opacity 0.3s ease;
-        }
-
-        .header-nav.active {
-            transform: translateY(12%);
-            opacity: 1;
-            pointer-events: auto;
-        }
+    .burger {
+        display: flex !important;
+        z-index: 1101;
     }
+
+    .header-nav {
+        position: fixed;
+        inset: 0;
+        background: #09090b;
+        z-index: 1100;
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+
+    .header-nav.active {
+        transform: translateY(12%);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
 
     .nav-list {
         flex-direction: column;
@@ -316,6 +305,7 @@ body {
         90% center;
     position: relative;
     padding: 100px 0 200px 0;
+    overflow-x: hidden;
 
 
     &-container {
@@ -819,356 +809,6 @@ body {
     }
 }
 
-
-// // DEG BLOCK
-.secion-deg {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    z-index: 10;
-    margin-top: 1110px;
-
-
-    .secion-deg__rotate {
-        background: $red;
-        width: 130vw;
-        margin-left: -15vw;
-        transform: rotate(-3deg);
-        padding: 80px 0;
-    }
-
-    .secion-deg__container {
-        max-width: 1720px;
-        margin: 0 auto;
-        height: 220px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        transform: rotate(3deg);
-    }
-
-
-    .secion-deg__container-element {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        img {
-            width: 44px;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        h3 {
-            font-size: 56px;
-            font-family: $RussoOne;
-            color: $white;
-            line-height: 64px;
-            letter-spacing: 2px;
-        }
-
-        p {
-            font-family: $RussoOne;
-            font-size: 20px;
-            color: $black;
-            font-weight: 200;
-        }
-    }
-}
-
-
-@media (min-width: 1430px) and (max-width: 1720px) {
-    .secion-deg {
-        position: absolute;
-        width: 100%;
-        left: 0;
-        z-index: 10;
-        margin-top: 950px;
-
-
-        .secion-deg__rotate {
-            background: $red;
-            width: 130vw;
-            margin-left: -15vw;
-            transform: rotate(-3deg);
-            padding: 60px 0;
-        }
-
-        .secion-deg__container {
-            max-width: 1720px;
-            margin: 0 auto;
-            height: 220px;
-            display: flex;
-            justify-content: center;
-            gap: 12%;
-            align-items: center;
-            transform: rotate(3deg);
-        }
-
-
-        .secion-deg__container-element {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            img {
-                width: 44px;
-                height: auto;
-                display: block;
-                object-fit: contain;
-            }
-
-            h3 {
-                font-size: 56px;
-                font-family: $RussoOne;
-                color: $white;
-                line-height: 64px;
-                letter-spacing: 2px;
-            }
-
-            p {
-                font-family: $RussoOne;
-                font-size: 20px;
-                color: $black;
-                font-weight: 200;
-            }
-        }
-    }
-}
-
-@media (max-width: 1429px) {
-    .secion-deg {
-        width: 100%;
-        left: 0;
-        z-index: 10;
-        margin-top: 780px;
-
-        .secion-deg__rotate {
-            background: $red;
-            width: 130vw;
-            margin-left: -15vw;
-            transform: rotate(-3deg);
-            padding: 20px 0;
-            // border: 1px solid greenyellow;
-        }
-
-        .secion-deg__container {
-            max-width: 100%;
-            margin: 0 auto;
-            height: 120px;
-            justify-content: center;
-            gap: 10%;
-            display: flex;
-            transform: rotate(3deg);
-            // border: 1px solid black;
-        }
-
-        .secion-deg__container-element {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            img {
-                width: 40px;
-                height: auto;
-                display: block;
-                object-fit: contain;
-            }
-
-            h3 {
-                font-size: 26px;
-                font-family: $RussoOne;
-                color: $white;
-                line-height: 34px;
-                letter-spacing: 2px;
-            }
-
-            p {
-                font-family: $RussoOne;
-                font-size: 12px;
-                color: $black;
-                font-weight: 200;
-            }
-        }
-    }
-}
-
-@media (max-width: 1024px) {
-    .secion-deg {
-        width: 100%;
-        left: 0;
-        z-index: 10;
-        margin-top: 600px;
-
-        .secion-deg__rotate {
-            background: $red;
-            width: 130vw;
-            margin-left: -15vw;
-            transform: rotate(-3deg);
-            padding: 20px 0;
-            // border: 1px solid greenyellow;
-        }
-
-        .secion-deg__container {
-            max-width: 100%;
-            margin: 0 auto;
-            height: 120px;
-            justify-content: center;
-            gap: 10%;
-            display: flex;
-            transform: rotate(3deg);
-            // border: 1px solid black;
-        }
-
-        .secion-deg__container-element {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            img {
-                width: 40px;
-                height: auto;
-                display: block;
-                object-fit: contain;
-            }
-
-            h3 {
-                font-size: 26px;
-                font-family: $RussoOne;
-                color: $white;
-                line-height: 34px;
-                letter-spacing: 2px;
-            }
-
-            p {
-                font-family: $RussoOne;
-                font-size: 12px;
-                color: $black;
-                font-weight: 200;
-            }
-        }
-    }
-}
-
-
-@media (max-width: 768px) {
-    .secion-deg {
-        width: 100%;
-        left: 0;
-        z-index: 10;
-        margin-top: 600px;
-
-        .secion-deg__rotate {
-            background: $red;
-            width: 130vw;
-            margin-left: -15vw;
-            transform: rotate(-3deg);
-            padding: 20px 0;
-            // border: 1px solid greenyellow;
-        }
-
-        .secion-deg__container {
-            max-width: 100%;
-            margin: 0 auto;
-            height: 120px;
-            justify-content: center;
-            gap: 5%;
-            display: flex;
-            transform: rotate(3deg);
-            // border: 1px solid black;
-        }
-
-        .secion-deg__container-element {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            img {
-                width: 40px;
-                height: auto;
-                display: block;
-                object-fit: contain;
-            }
-
-            h3 {
-                font-size: 26px;
-                font-family: $RussoOne;
-                color: $white;
-                line-height: 34px;
-                letter-spacing: 2px;
-            }
-
-            p {
-                font-family: $RussoOne;
-                font-size: 12px;
-                color: $black;
-                font-weight: 200;
-            }
-        }
-    }
-}
-
-
-@media (max-width: 480px) {
-    .secion-deg {
-        width: 100%;
-        left: 0;
-        z-index: 10;
-        margin-top: 600px;
-        display: none;
-
-        .secion-deg__rotate {
-            background: $red;
-            width: 130vw;
-            margin-left: -15vw;
-            transform: rotate(-3deg);
-            padding: 20px 0;
-            // border: 1px solid greenyellow;
-        }
-
-        .secion-deg__container {
-            max-width: 100%;
-            margin: 0 auto;
-            height: 120px;
-            justify-content: center;
-            // gap: 1%;
-            flex-wrap: wrap;
-            display: flex;
-            transform: rotate(3deg);
-            // border: 1px solid black;
-        }
-
-        .secion-deg__container-element {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            img {
-                width: 24px;
-                height: auto;
-                display: block;
-                object-fit: contain;
-            }
-
-            h3 {
-                font-size: 16px;
-                font-family: $RussoOne;
-                color: $white;
-                line-height: 34px;
-                letter-spacing: 2px;
-            }
-
-            p {
-                font-family: $RussoOne;
-                font-size: 12px;
-                color: $black;
-                font-weight: 200;
-            }
-        }
-    }
-}
-
 // ABOUT
 
 .about {
@@ -1178,6 +818,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 100px;
+    overflow-x: hidden;
 
     &-text {
         display: flex;
@@ -1803,258 +1444,6 @@ body {
     }
 }
 
-/* Меньше 375px */
-@media (max-width: 374px) {
-    .about {
-        margin-top: 50px;
-        flex-direction: column;
-        gap: 30px;
-        padding: 0 8px;
-
-        &-text {
-            width: 100%;
-            padding: 0;
-            align-items: center;
-
-            &__title {
-                align-items: center;
-
-                h2 {
-                    font-size: 28px;
-                    letter-spacing: 0;
-                }
-
-                h4 {
-                    font-size: 13px;
-                }
-
-                span {
-                    width: 40px;
-                    height: 2.5px;
-                }
-            }
-
-            &__main {
-                gap: 12px;
-                margin-top: 16px;
-
-                p {
-                    font-size: 12px;
-                    text-align: center;
-                }
-            }
-
-            &__ul {
-                width: 100%;
-
-                ul {
-                    margin-top: 16px;
-                    gap: 6px;
-                }
-
-                li {
-                    font-size: 12px;
-                    letter-spacing: 0.2px;
-                    padding-left: 14px;
-
-                    &::before {
-                        width: 4px;
-                        height: 4px;
-                    }
-                }
-            }
-        }
-
-        &-img {
-            width: 100%;
-            max-width: 340px;
-            height: 340px;
-
-            span {
-                width: 320px;
-                height: 450px;
-                top: -50px;
-                left: 50%;
-                transform: translateX(-50%) skew(-5deg);
-            }
-
-            &__border {
-                border-width: 1px;
-                margin-top: 8px;
-                margin-left: 8px;
-            }
-
-            &__block {
-                h3 {
-                    font-size: 18px;
-                    bottom: 10px;
-                    left: 10px;
-                    right: 10px;
-                    text-align: center;
-                    line-height: 1.2;
-                }
-            }
-        }
-    }
-}
-
-/* Горизонтальная ориентация на мобильных */
-@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
-    .about {
-        margin-top: 80px;
-        flex-direction: row;
-        gap: 20px;
-        align-items: flex-start;
-
-        &-text {
-            width: 55%;
-            max-width: none;
-
-            &__title {
-                align-items: flex-start;
-                text-align: left;
-
-                h2 {
-                    font-size: 28px;
-                    text-align: left;
-                }
-
-                h4 {
-                    text-align: left;
-                }
-            }
-
-            &__main {
-                p {
-                    text-align: left;
-                }
-            }
-
-            &__ul {
-                ul {
-                    align-items: flex-start;
-                }
-            }
-        }
-
-        &-img {
-            width: 45%;
-            max-width: none;
-            height: 300px;
-
-            span {
-                height: 400px;
-                top: -40px;
-                transform: translateX(-50%) skew(-5deg);
-            }
-
-            &__block {
-                h3 {
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-}
-
-/* Темная тема оптимизация */
-@media (prefers-color-scheme: dark) and (max-width: 767px) {
-    .about {
-        &-img {
-            span {
-                background-color: rgba(60, 131, 246, 0.03);
-            }
-        }
-    }
-}
-
-/* Улучшение для устройств с высоким DPI */
-@media (max-width: 767px) and (-webkit-min-device-pixel-ratio: 2),
-(max-width: 767px) and (min-resolution: 192dpi) {
-    .about {
-        &-img {
-            &__border {
-                border-width: 0.5px;
-            }
-        }
-    }
-}
-
-/* Адаптация для очень маленьких высот экрана */
-@media (max-width: 767px) and (max-height: 600px) {
-    .about {
-        margin-top: 60px;
-
-        &-img {
-            height: 300px;
-            max-width: 300px;
-
-            span {
-                height: 350px;
-                top: -30px;
-            }
-
-            &__block {
-                h3 {
-                    font-size: 16px;
-                    bottom: 8px;
-                }
-            }
-        }
-    }
-}
-
-/* Оптимизация производительности на мобильных */
-@media (max-width: 767px) {
-    .about {
-
-        // Упрощаем анимации для производительности
-        &-img {
-            &__block {
-                img {
-                    transition: filter 0.3s ease;
-                }
-            }
-        }
-
-        // Улучшаем читаемость текста
-        &-text {
-            &__main {
-                p {
-                    line-height: 1.5;
-                }
-            }
-
-            &__ul {
-                li {
-                    line-height: 1.4;
-                }
-            }
-        }
-    }
-}
-
-/* Для foldable устройств и очень широких экранов */
-@media (max-width: 767px) and (min-aspect-ratio: 1/1) {
-    .about {
-        flex-direction: row;
-        align-items: flex-start;
-
-        &-text {
-            width: 60%;
-        }
-
-        &-img {
-            width: 40%;
-            height: 350px;
-
-            span {
-                transform: translateX(-50%) skew(-10deg);
-            }
-        }
-    }
-}
-
 // coach
 
 .coach {
@@ -2065,6 +1454,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 100px 0;
+    overflow-x: hidden;
 
     h3 {
         font-family: $RussoOne;
@@ -2430,15 +1820,12 @@ body {
                 width: 100%;
                 height: 100%;
 
-                // Добавляем переворот при клике для мобильных
-                // При этом сохраняем hover для устройств с курсором
                 @media (hover: hover) and (pointer: fine) {
                     &:hover {
                         transform: none;
                     }
                 }
 
-                // Для тач-устройств убираем hover и добавляем активное состояние
                 @media (hover: none) and (pointer: coarse) {
                     &:active {
                         transform: rotateY(180deg);
@@ -2488,7 +1875,7 @@ body {
             }
 
             .back {
-                padding: 20px 16px; // Уменьшаем padding
+                padding: 20px 16px; 
 
                 .back-content {
                     max-width: 100%;
@@ -2499,14 +1886,14 @@ body {
                 }
 
                 h5 {
-                    font-size: 16px; // Уменьшаем размер
+                    font-size: 16px; 
                     margin-bottom: 15px;
                     line-height: 1.2;
                 }
 
                 .back-info {
-                    font-size: 14px; // Уменьшаем размер
-                    margin: 8px 0; // Уменьшаем отступы
+                    font-size: 14px;
+                    margin: 8px 0;
                     line-height: 1.3;
                 }
 
@@ -2515,7 +1902,7 @@ body {
                     font-size: 14px;
                     margin-top: 16px;
                     width: 100%;
-                    min-height: 44px; // Для удобного касания
+                    min-height: 44px;
                 }
             }
 
@@ -2575,15 +1962,12 @@ body {
                 width: 100%;
                 height: 100%;
 
-                // Добавляем переворот при клике для мобильных
-                // При этом сохраняем hover для устройств с курсором
                 @media (hover: hover) and (pointer: fine) {
                     &:hover {
                         transform: rotateY(180deg);
                     }
                 }
 
-                // Для тач-устройств убираем hover и добавляем активное состояние
                 @media (hover: none) and (pointer: coarse) {
                     &:active {
                         transform: rotateY(180deg);
@@ -2632,7 +2016,7 @@ body {
             }
 
             .back {
-                padding: 18px 14px; // Еще меньше padding
+                padding: 18px 14px; 
 
                 h5 {
                     font-size: 15px;
@@ -2778,132 +2162,127 @@ body {
     }
 }
 
-/* Дополнительные стили для предотвращения зеркального эффекта и улучшения UX на мобильных */
+// @media (hover: hover) and (pointer: fine) {
+//     .coach {
+//         &__block {
+//             .coach__inner {
+//                 &:hover {
+//                     transform: rotateY(180deg);
+//                 }
+//             }
+//         }
+//     }
+// }
 
-/* Для устройств с поддержкой hover (десктопы, ноутбуки) */
-@media (hover: hover) and (pointer: fine) {
-    .coach {
-        &__block {
-            .coach__inner {
-                &:hover {
-                    transform: rotateY(180deg);
-                }
-            }
-        }
-    }
-}
 
-/* Для тач-устройств (мобильные, планшеты) */
-@media (hover: none) and (pointer: coarse) {
-    .coach {
-        &__block {
-            .coach__inner {
+// @media (hover: none) and (pointer: coarse) {
+//     .coach {
+//         &__block {
+//             .coach__inner {
 
-                // Убираем стандартный ховер для тач-устройств
-                &:hover {
-                    transform: none;
-                }
+//                 &:hover {
+//                     transform: none;
+//                 }
 
-                // Добавляем активное состояние при нажатии
-                &:active {
-                    transform: rotateY(180deg);
-                    transition: transform 0.4s ease;
-                }
-            }
-        }
-    }
-}
+//                 &:active {
+//                     transform: rotateY(180deg);
+//                     transition: transform 0.4s ease;
+//                 }
+//             }
+//         }
+//     }
+// }
 
-/* Улучшение для очень маленьких экранов */
-@media (max-width: 280px) {
-    .coach {
-        &__block {
-            max-width: 240px;
-            height: 360px;
 
-            .front {
-                img {
-                    height: 358px;
-                }
+// @media (max-width: 280px) {
+//     .coach {
+//         &__block {
+//             max-width: 240px;
+//             height: 360px;
 
-                h4 {
-                    font-size: 15px;
-                    bottom: 50px;
-                }
+//             .front {
+//                 img {
+//                     height: 358px;
+//                 }
 
-                p {
-                    font-size: 10px;
-                }
+//                 h4 {
+//                     font-size: 15px;
+//                     bottom: 50px;
+//                 }
 
-                span {
-                    bottom: 85px;
-                }
-            }
+//                 p {
+//                     font-size: 10px;
+//                 }
 
-            .back {
-                padding: 12px 8px;
+//                 span {
+//                     bottom: 85px;
+//                 }
+//             }
 
-                h5 {
-                    font-size: 12px;
-                }
+//             .back {
+//                 padding: 12px 8px;
 
-                .back-info {
-                    font-size: 10px;
-                }
+//                 h5 {
+//                     font-size: 12px;
+//                 }
 
-                .signup-btn {
-                    padding: 6px 12px;
-                    font-size: 10px;
-                }
-            }
-        }
-    }
-}
+//                 .back-info {
+//                     font-size: 10px;
+//                 }
 
-/* Для горизонтальной ориентации на мобильных */
-@media (max-width: 767px) and (orientation: landscape) {
-    .coach {
-        .coach-wrapper {
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+//                 .signup-btn {
+//                     padding: 6px 12px;
+//                     font-size: 10px;
+//                 }
+//             }
+//         }
+//     }
+// }
 
-        &__block {
-            width: 45%;
-            max-width: none;
-            height: 380px;
 
-            .front {
-                img {
-                    height: 378px;
-                }
-            }
-        }
-    }
-}
+// @media (max-width: 767px) and (orientation: landscape) {
+//     .coach {
+//         .coach-wrapper {
+//             flex-direction: row;
+//             flex-wrap: wrap;
+//             justify-content: center;
+//             gap: 20px;
+//         }
 
-/* Если текст все равно вылазит, добавляем переносы */
-@media (max-width: 767px) {
-    .coach {
-        &__block {
-            .back {
-                h5 {
-                    word-wrap: break-word;
-                    overflow-wrap: break-word;
-                    hyphens: auto;
-                }
+//         &__block {
+//             width: 45%;
+//             max-width: none;
+//             height: 380px;
 
-                .back-info {
-                    br {
-                        display: none; // Убираем принудительные переносы на мобильных
-                    }
-                }
-            }
-        }
-    }
-}
+//             .front {
+//                 img {
+//                     height: 378px;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+// @media (max-width: 767px) {
+//     .coach {
+//         &__block {
+//             .back {
+//                 h5 {
+//                     word-wrap: break-word;
+//                     overflow-wrap: break-word;
+//                     hyphens: auto;
+//                 }
+
+//                 .back-info {
+//                     br {
+//                         display: none; // Убираем принудительные переносы на мобильных
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // atmosphere
 
@@ -2915,6 +2294,7 @@ body {
     align-items: center;
     background-color: rgb(24, 24, 27);
     padding: 100px 0;
+    overflow-x: hidden;
 
     &-wrapper {
         max-width: 1720px;
@@ -3049,7 +2429,7 @@ body {
     }
 }
 
-/* 1440px - 1720px */
+
 @media (min-width: 1440px) and (max-width: 1720px) {
     .atmosphere {
         padding: 90px 24px;
@@ -3113,7 +2493,7 @@ body {
     }
 }
 
-/* 1024px - 1439px */
+
 @media (min-width: 1024px) and (max-width: 1439px) {
     .atmosphere {
         padding: 80px 24px;
@@ -3250,7 +2630,7 @@ body {
                 gap: 16px;
 
                 img {
-                    width: calc(33.333% - 11px); // 16px * 2/3 ≈ 10.67px
+                    width: calc(33.333% - 11px); 
                     height: 100%;
                 }
             }
@@ -3258,7 +2638,6 @@ body {
     }
 }
 
-/* 480px - 767px */
 @media (min-width: 480px) and (max-width: 767px) {
     .atmosphere {
         padding: 60px 16px;
@@ -3326,7 +2705,7 @@ body {
                 gap: 14px;
 
                 img {
-                    width: calc(33.333% - 9.33px); // 14px * 2/3 ≈ 9.33px
+                    width: calc(33.333% - 9.33px); 
                     height: 100%;
                 }
             }
@@ -3334,7 +2713,6 @@ body {
     }
 }
 
-/* 375px - 479px */
 @media (min-width: 375px) and (max-width: 479px) {
     .atmosphere {
         padding: 48px 12px;
@@ -3417,7 +2795,6 @@ body {
     }
 }
 
-/* Для очень маленьких экранов (меньше 375px) */
 @media (max-width: 374px) {
     .atmosphere {
         padding: 40px 10px;
@@ -3507,6 +2884,7 @@ body {
     align-items: center;
     background-color: $bgr;
     position: relative;
+    overflow-x: hidden;
 
     &-container {
         max-width: 1720px;
@@ -3751,7 +3129,6 @@ body {
     line-height: 1.4;
 }
 
-/* 1440px - 1720px */
 @media (min-width: 1440px) and (max-width: 1720px) {
     .connect {
         padding: 90px 24px;
@@ -3822,7 +3199,6 @@ body {
     }
 }
 
-/* 1024px - 1439px */
 @media (min-width: 1024px) and (max-width: 1439px) {
     .connect {
         padding: 80px 20px;
@@ -3908,7 +3284,6 @@ body {
     }
 }
 
-/* 768px - 1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
     .connect {
         padding: 70px 16px;
@@ -4140,6 +3515,7 @@ body {
     background: linear-gradient(180deg, rgba(5, 4, 10, 0) 0%, rgba(5, 4, 10, 0.18) 18%, rgba(15, 18, 32, 1) 100%);
     color: rgba(255, 255, 255, 0.9);
     padding: 48px 0 24px 0;
+    overflow-x: hidden;
 
     &__inner {
         max-width: 1720px;
@@ -4618,10 +3994,6 @@ body {
 @media (max-width: 767px) and (-webkit-min-device-pixel-ratio: 2),
 (max-width: 767px) and (min-resolution: 192dpi) {
     .footer {
-        .footer-logo {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-        }
 
         &__bottom {
             border-top-width: 0.5px;
@@ -4775,7 +4147,7 @@ body {
     font-family: 'Russo One', sans-serif;
     font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 
     &:hover {
         background: #b01010;
@@ -5166,7 +4538,6 @@ body {
 
 /* Для устройств с уменьшенным движением */
 @media (prefers-reduced-motion: reduce) {
-
     .modal-container,
     .modal-overlay,
     .modal-close,

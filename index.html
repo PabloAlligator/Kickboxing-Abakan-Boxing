@@ -36,11 +36,11 @@
                 </ul>
             </nav>
 
-              <button class="burger" aria-label="Меню">
-                    <span class="burger-line"></span>
-                    <span class="burger-line"></span>
-                    <span class="burger-line"></span>
-                </button>
+            <button class="burger" aria-label="Меню">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
 
             <div class="header-cta">
                 <button class="header-btn">ЗАПИСАТЬСЯ</button>
@@ -72,7 +72,7 @@
     </section>
 
     <!-- deg section -->
-<!-- 
+    <!-- 
     <div class="secion-deg">
         <div class="secion-deg__rotate">
             <div class="secion-deg__container">
@@ -142,7 +142,7 @@
             <div class="about-img__block">
                 <img src="site/img/seva.jpg" alt="" loading="lazy">
                 <h3>
-                     <q cite="#" aria-label="Цитата тренера Севы">БОЛЬ ВРЕМЕННА. <br>ТРИУМФ ВЕЧЕН.</q>
+                    <q cite="#" aria-label="Цитата тренера Севы">БОЛЬ ВРЕМЕННА. <br>ТРИУМФ ВЕЧЕН.</q>
                 </h3>
             </div>
         </div>
@@ -405,9 +405,11 @@
 
             <div class="footer-col__contacts">
                 <h4>Контакты</h4>
-                <p>г. Абакан, ул. Пирятинская, 12</p>
-                <p>Тел: <a href="tel:+79232191080" aria-label="Позвонить по номеру +7 (923) 219-10-80">+7 (923) 219-10-80</a></p>
-                <p>Email: <a href="mailto:info@club.ru" aria-label="Написать письмо на info@club.ru">info@club.ru</a></p>
+                <p>г. Абакан, ул. Стофато, 9</p>
+                <p>Тел: <a href="tel:+79232191080" aria-label="Позвонить по номеру +7 (923) 219-10-80">+7 (923)
+                        219-10-80</a></p>
+                <p>Email: <a href="mailto:info@club.ru" aria-label="Написать письмо на info@club.ru">info@club.ru</a>
+                </p>
             </div>
 
             <div class="footer-col__links">
@@ -426,100 +428,72 @@
         </div>
     </footer>
 
-    <!-- После футера, перед закрывающим </body> -->
-    <div class="modal" id="modal">
-        <div class="modal__overlay" data-modal-close></div>
-        <div class="modal__content">
-            <button class="modal__close" data-modal-close>&times;</button>
-            <h2 class="modal__title">Записаться на тренировку</h2>
-
-            <form class="modal__form" id="modalForm">
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <input type="tel" name="phone" placeholder="Телефон" required>
-                <button type="submit" class="modal__submit">Отправить</button>
-                <!-- <p class="modal__note">Мы перезвоним вам в течение 15 минут</p> -->
-            </form>
-        </div>
-    </div>
-
     <!-- Модальное окно -->
-<div class="modal-overlay" id="signupModal">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h2 class="modal-title">ЗАПИСАТЬСЯ НА ТРЕНИРОВКУ</h2>
-            <button class="modal-close" aria-label="Закрыть окно">&times;</button>
-        </div>
-        
-        <div class="modal-body">
-            <form class="modal-form" id="signupForm">
-                <div class="form-group">
-                    <input type="text" 
-                           class="modal-input" 
-                           placeholder="Ваше имя" 
-                           required
-                           aria-label="Ваше имя">
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">ЗАПИСАТЬСЯ НА ТРЕНИРОВКУ</h2>
+                <button class="modal-close" aria-label="Закрыть окно">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form class="modal-form" id="signupForm">
+                    <div class="form-group">
+                        <input type="text" class="modal-input" placeholder="Ваше имя" required aria-label="Ваше имя">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="tel" class="modal-input" placeholder="Номер телефона" required
+                            aria-label="Номер телефона" pattern="[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
+                            title="Формат: +7 (999) 999-99-99">
+                    </div>
+
+                    <div class="form-group">
+                        <select class="modal-input modal-select" required aria-label="Выберите программу">
+                            <option value="" disabled selected>Выберите программу</option>
+                            <option value="boxing">Бокс</option>
+                            <option value="kickboxing">Кикбоксинг</option>
+                            <option value="kids">Функциональная тренировка</option>
+                            <option value="personal">Персональная тренировка</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="modal-input modal-select" aria-label="Выберите тренера">
+                            <option value="" selected>Любой тренер</option>
+                            <option value="baykalov">Байкалов А.В.</option>
+                            <option value="kharyushin">Харюшин В.Е.</option>
+                            <option value="prokofiev">Прокофьев М.А.</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" class="modal-input" aria-label="Желаемая дата тренировки">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="privacyPolicy" class="modal-checkbox" required>
+                        <label for="privacyPolicy" class="checkbox-label">
+                            Я соглашаюсь с <a href="#" class="policy-link">политикой конфиденциальности</a> и обработкой
+                            персональных данных
+                        </label>
+                    </div>
+
+                    <button type="submit" class="modal-submit-btn">ОТПРАВИТЬ ЗАЯВКУ</button>
+                </form>
+
+                <div class="modal-contacts">
+                    <p class="contacts-title">Или свяжитесь с нами:</p>
+                    <a href="tel:+79232191080" class="contact-link">
+                        <span class="contact-icon">📞</span> +7 (923) 219-10-80
+                    </a>
+                    <a href="mailto:info@club.ru" class="contact-link">
+                        <span class="contact-icon">✉️</span> info@club.ru
+                    </a>
                 </div>
-                
-                <div class="form-group">
-                    <input type="tel" 
-                           class="modal-input" 
-                           placeholder="Номер телефона" 
-                           required
-                           aria-label="Номер телефона"
-                           pattern="[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
-                           title="Формат: +7 (999) 999-99-99">
-                </div>
-                
-                <div class="form-group">
-                    <select class="modal-input modal-select" required aria-label="Выберите программу">
-                        <option value="" disabled selected>Выберите программу</option>
-                        <option value="boxing">Бокс</option>
-                        <option value="kickboxing">Кикбоксинг</option>
-                        <option value="kids">Функциональная тренировка</option>
-                        <option value="personal">Персональная тренировка</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <select class="modal-input modal-select" aria-label="Выберите тренера">
-                        <option value="" selected>Любой тренер</option>
-                        <option value="baykalov">Байкалов А.В.</option>
-                        <option value="kharyushin">Харюшин В.Е.</option>
-                        <option value="prokofiev">Прокофьев М.А.</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <input type="date" 
-                           class="modal-input" 
-                           aria-label="Желаемая дата тренировки">
-                </div>
-                
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" 
-                           id="privacyPolicy" 
-                           class="modal-checkbox" 
-                           required>
-                    <label for="privacyPolicy" class="checkbox-label">
-                        Я соглашаюсь с <a href="#" class="policy-link">политикой конфиденциальности</a> и обработкой персональных данных
-                    </label>
-                </div>
-                
-                <button type="submit" class="modal-submit-btn">ОТПРАВИТЬ ЗАЯВКУ</button>
-            </form>
-            
-            <div class="modal-contacts">
-                <p class="contacts-title">Или свяжитесь с нами:</p>
-                <a href="tel:+79232191080" class="contact-link">
-                    <span class="contact-icon">📞</span> +7 (923) 219-10-80
-                </a>
-                <a href="mailto:info@club.ru" class="contact-link">
-                    <span class="contact-icon">✉️</span> info@club.ru
-                </a>
             </div>
         </div>
     </div>
-</div>
     <script src="site/js.js/script.js"></script>
 </body>
 
