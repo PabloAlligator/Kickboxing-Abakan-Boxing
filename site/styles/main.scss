@@ -1229,7 +1229,7 @@ body {
         flex-direction: column;
         gap: 50px;
         padding: 0 12px;
-        overflow-y: hidden;
+        // overflow-x: hidden;
 
         &-text {
             width: 100%;
@@ -1314,6 +1314,7 @@ body {
                 border-width: 2px;
                 margin-top: 12px;
                 margin-left: 12px;
+                display: none;
             }
 
             &__block {
@@ -1341,7 +1342,7 @@ body {
         flex-direction: column;
         gap: 40px;
         padding: 0 10px;
-        overflow-x: hidden;
+        // overflow-x: hidden;
 
         &-text {
             width: 100%;
@@ -1417,6 +1418,7 @@ body {
                 border-width: 1.5px;
                 margin-top: 10px;
                 margin-left: 10px;
+                display: none;
             }
 
             &__block {
@@ -3033,7 +3035,7 @@ body {
     flex-direction: column;
     gap: 12px;
     width: 100%;
-    margin-top: 30px;
+    margin-top: -30px;
 
     @media (max-width: 1023px) {
         display: flex; 
