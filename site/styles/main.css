@@ -636,7 +636,6 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-top: 100px;
-  overflow-x: hidden;
 }
 .about-text {
   display: flex;
@@ -721,6 +720,7 @@ body {
   width: 50%;
   width: 720px;
   height: 720px;
+  margin-right: 22px;
 }
 .about-img span {
   width: 800px;
@@ -969,6 +969,7 @@ body {
     flex-direction: column;
     gap: 50px;
     padding: 0 12px;
+    overflow-y: hidden;
   }
   .about-text {
     width: 100%;
@@ -1059,6 +1060,7 @@ body {
     flex-direction: column;
     gap: 40px;
     padding: 0 10px;
+    overflow-x: hidden;
   }
   .about-text {
     width: 100%;
@@ -1109,6 +1111,7 @@ body {
     width: 100%;
     max-width: 400px;
     height: 400px;
+    margin-right: 0;
   }
   .about-img span {
     width: 380px;
@@ -2322,6 +2325,173 @@ body {
   font-weight: 400;
 }
 
+.acc-schedule {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 30px;
+}
+@media (max-width: 1023px) {
+  .acc-schedule {
+    display: flex;
+  }
+}
+
+.acc-item {
+  background: #2a2a3e;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+.acc-item:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.acc-item.active {
+  border-color: rgba(219, 39, 39, 0.4);
+  box-shadow: 0 6px 20px rgba(219, 39, 39, 0.15);
+}
+
+.acc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
+  background: #2a2a3e;
+  transition: all 0.3s ease;
+}
+.acc-head:hover {
+  background: rgb(48.1788461538, 48.1788461538, 71.1211538462);
+}
+.active .acc-head {
+  background: rgb(46.1192307692, 46.1192307692, 68.0807692308);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.acc-day {
+  font-family: RussoOne;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.acc-icon {
+  font-family: inter;
+  font-size: 22px;
+  color: #d81414;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.active .acc-icon {
+  transform: rotate(45deg);
+  color: rgb(236.1016949153, 50.8983050847, 50.8983050847);
+}
+
+.acc-content {
+  max-height: 0;
+  overflow: hidden;
+  background: #3d3d52;
+  transition: max-height 0.4s ease;
+}
+
+.acc-time {
+  padding: 20px 20px 10px;
+}
+.acc-time .time-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.acc-time span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inter;
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.acc-time .group-type {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 400;
+}
+
+.acc-prog {
+  padding: 15px 20px 20px;
+  font-family: RussoOne;
+  font-size: 17px;
+  color: #d81414;
+  font-style: italic;
+  text-align: right;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.desktop-table {
+  display: block;
+}
+@media (max-width: 1023px) {
+  .desktop-table {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .acc-head {
+    padding: 14px 16px;
+  }
+  .acc-day {
+    font-size: 16px;
+  }
+  .acc-icon {
+    font-size: 20px;
+  }
+  .acc-time {
+    padding: 16px 16px 8px;
+  }
+  .acc-time span {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  .acc-time .group-type {
+    font-size: 11px;
+  }
+  .acc-prog {
+    padding: 12px 16px 16px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+@media (max-width: 480px) {
+  .acc-day {
+    font-size: 15px;
+  }
+  .acc-time span {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  .acc-time .group-type {
+    align-self: flex-start;
+  }
+}
 .form-card {
   width: 100%;
   background: linear-gradient(135deg, rgba(45, 27, 78, 0.95) 0%, rgba(26, 43, 94, 0.95) 100%);
@@ -2582,6 +2752,7 @@ body {
   }
   .connect .schedule-table {
     gap: 12px;
+    display: none;
   }
   .connect .schedule-row {
     grid-template-columns: 1.2fr 1fr 0.8fr;
@@ -2657,6 +2828,7 @@ body {
   }
   .connect .schedule-table {
     gap: 10px;
+    display: none;
   }
   .connect .schedule-row {
     display: flex;
@@ -2786,6 +2958,9 @@ body {
 }
 .footer__inner .footer-col__contacts p a:hover::after {
   width: 100%;
+}
+.footer__inner .footer-col__contacts p .development {
+  color: #ffffff;
 }
 .footer__inner .footer-col__links {
   display: flex;

@@ -513,3 +513,34 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
   document.head.appendChild(errorStyles);
 });
+
+
+// Аккордеон для расписания
+document.addEventListener('DOMContentLoaded', function() {
+    const accItems = document.querySelectorAll('.acc-item');
+    
+    accItems.forEach(item => {
+        const head = item.querySelector('.acc-head');
+        
+        head.addEventListener('click', () => {
+        
+            accItems.forEach(other => {
+                if (other !== item && other.classList.contains('active')) {
+                    other.classList.remove('active');
+                    other.querySelector('.acc-content').style.maxHeight = null;
+                }
+            });
+            
+            const isActive = item.classList.contains('active');
+            const content = item.querySelector('.acc-content');
+            
+            item.classList.toggle('active');
+            
+            if (!isActive) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                content.style.maxHeight = null;
+            }
+        });
+    });
+});

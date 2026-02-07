@@ -818,7 +818,8 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 100px;
-    overflow-x: hidden;
+    // border: 1px solid red;
+    // overflow-x: hidden;
 
     &-text {
         display: flex;
@@ -917,6 +918,7 @@ body {
         width: 50%;
         width: 720px;
         height: 720px;
+        margin-right: 22px;
 
         span {
             width: 800px;
@@ -1227,6 +1229,7 @@ body {
         flex-direction: column;
         gap: 50px;
         padding: 0 12px;
+        overflow-y: hidden;
 
         &-text {
             width: 100%;
@@ -1338,6 +1341,7 @@ body {
         flex-direction: column;
         gap: 40px;
         padding: 0 10px;
+        overflow-x: hidden;
 
         &-text {
             width: 100%;
@@ -1399,6 +1403,7 @@ body {
             width: 100%;
             max-width: 400px;
             height: 400px;
+            margin-right: 0;
 
             span {
                 width: 380px;
@@ -1875,7 +1880,7 @@ body {
             }
 
             .back {
-                padding: 20px 16px; 
+                padding: 20px 16px;
 
                 .back-content {
                     max-width: 100%;
@@ -1886,7 +1891,7 @@ body {
                 }
 
                 h5 {
-                    font-size: 16px; 
+                    font-size: 16px;
                     margin-bottom: 15px;
                     line-height: 1.2;
                 }
@@ -2016,7 +2021,7 @@ body {
             }
 
             .back {
-                padding: 18px 14px; 
+                padding: 18px 14px;
 
                 h5 {
                     font-size: 15px;
@@ -2630,7 +2635,7 @@ body {
                 gap: 16px;
 
                 img {
-                    width: calc(33.333% - 11px); 
+                    width: calc(33.333% - 11px);
                     height: 100%;
                 }
             }
@@ -2705,7 +2710,7 @@ body {
                 gap: 14px;
 
                 img {
-                    width: calc(33.333% - 9.33px); 
+                    width: calc(33.333% - 9.33px);
                     height: 100%;
                 }
             }
@@ -3022,6 +3027,194 @@ body {
     font-weight: 400;
 }
 
+// Аккордеон расписания
+.acc-schedule {
+    display: none; 
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 30px;
+
+    @media (max-width: 1023px) {
+        display: flex; 
+    }
+}
+
+.acc-item {
+    background: #2a2a3e;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    &.active {
+        border-color: rgba(219, 39, 39, 0.4);
+        box-shadow: 0 6px 20px rgba(219, 39, 39, 0.15);
+    }
+}
+
+.acc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    background: #2a2a3e;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: lighten(#2a2a3e, 3%);
+    }
+
+    .active & {
+        background: lighten(#2a2a3e, 2%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+.acc-day {
+    font-family: $RussoOne;
+    font-size: 18px;
+    color: $white;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.acc-icon {
+    font-family: $inter;
+    font-size: 22px;
+    color: $red;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+
+    .active & {
+        transform: rotate(45deg);
+        color: lighten($red, 10%);
+    }
+}
+
+.acc-content {
+    max-height: 0;
+    overflow: hidden;
+    background: #3d3d52;
+    transition: max-height 0.4s ease;
+}
+
+.acc-time {
+    padding: 20px 20px 10px;
+
+    .time-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    span {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: $inter;
+        font-size: 15px;
+        color: $white;
+        font-weight: 500;
+        padding: 10px 12px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .group-type {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        font-style: italic;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: 400;
+    }
+}
+
+.acc-prog {
+    padding: 15px 20px 20px;
+    font-family: $RussoOne;
+    font-size: 17px;
+    color: $red;
+    font-style: italic;
+    text-align: right;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Десктопная таблица
+.desktop-table {
+    display: block;
+
+    @media (max-width: 1023px) {
+        display: none;
+    }
+}
+
+// Медиа запросы для адаптивности
+@media (max-width: 767px) {
+    .acc-head {
+        padding: 14px 16px;
+    }
+
+    .acc-day {
+        font-size: 16px;
+    }
+
+    .acc-icon {
+        font-size: 20px;
+    }
+
+    .acc-time {
+        padding: 16px 16px 8px;
+
+        span {
+            font-size: 14px;
+            padding: 8px 10px;
+        }
+
+        .group-type {
+            font-size: 11px;
+        }
+    }
+
+    .acc-prog {
+        padding: 12px 16px 16px;
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .acc-day {
+        font-size: 15px;
+    }
+
+    .acc-time {
+        span {
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-start;
+        }
+
+        .group-type {
+            align-self: flex-start;
+        }
+    }
+}
+
 .form-card {
     width: 100%;
     background: linear-gradient(135deg, rgba(45, 27, 78, 0.95) 0%, rgba(26, 43, 94, 0.95) 100%);
@@ -3329,6 +3522,7 @@ body {
 
         .schedule-table {
             gap: 12px;
+            display: none;
         }
 
         .schedule-row {
@@ -3427,6 +3621,7 @@ body {
 
         .schedule-table {
             gap: 10px;
+            display: none;
         }
 
         .schedule-row {
@@ -3579,6 +3774,9 @@ body {
                             width: 100%;
                         }
                     }
+                }
+                .development {
+                    color: $white;
                 }
             }
         }
@@ -4423,6 +4621,7 @@ body {
 
 /* Для устройств с уменьшенным движением */
 @media (prefers-reduced-motion: reduce) {
+
     .modal-container,
     .modal-overlay,
     .modal-close,
