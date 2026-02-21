@@ -428,7 +428,7 @@ body {
                 rgba(0, 0, 0, 0.8) 15%,
                 rgba(0, 0, 0, 0.4) 35%,
                 rgba(0, 0, 0, 0) 55%),
-            url('../img/hero4k.png');
+            url('../img/пма4к.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position:
@@ -479,7 +479,7 @@ body {
                 rgba(0, 0, 0, 0.8) 10%,
                 rgba(0, 0, 0, 0.4) 30%,
                 rgba(0, 0, 0, 0) 50%),
-            url('../img/hero4k.png');
+            url('../img/пма4к.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position:
@@ -545,7 +545,7 @@ body {
                 rgba(0, 0, 0, 0.8) 10%,
                 rgba(0, 0, 0, 0.4) 30%,
                 rgba(0, 0, 0, 0) 50%),
-            url('../img/hero4k.png');
+            url('../img/пма4к.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
@@ -625,7 +625,7 @@ body {
                 rgba(0, 0, 0, 0.9) 0%,
                 rgba(0, 0, 0, 0.7) 40%,
                 rgba(0, 0, 0, 0.5) 60%),
-            url('../img/hero4k.png');
+            url('../img/пма4к.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
@@ -691,18 +691,18 @@ body {
         min-height: 60vh;
         padding: 20px 20px 40px 20px;
         justify-self: center;
-        background:
-            linear-gradient(to bottom,
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0.1) 50%,
-                rgba(0, 0, 0, 0.3) 70%,
-                rgba(0, 0, 0, 0.5) 85%,
-                rgba(0, 0, 0, 0.7) 100%),
-            linear-gradient(to top,
-                rgba(0, 0, 0, 0.6) 0%,
-                rgba(0, 0, 0, 0.3) 25%,
-                rgba(0, 0, 0, 0) 50%),
-            url('../img/hero4k.png');
+        // background:
+        //     linear-gradient(to bottom,
+        //         rgba(0, 0, 0, 0) 0%,
+        //         rgba(0, 0, 0, 0.1) 50%,
+        //         rgba(0, 0, 0, 0.3) 70%,
+        //         rgba(0, 0, 0, 0.5) 85%,
+        //         rgba(0, 0, 0, 0.7) 100%),
+        //     linear-gradient(to top,
+        //         rgba(0, 0, 0, 0.6) 0%,
+        //         rgba(0, 0, 0, 0.3) 25%,
+        //         rgba(0, 0, 0, 0) 50%),
+        //     url('../img/пма4к.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: right;
@@ -1117,6 +1117,10 @@ body {
                     bottom: 20px;
                     left: 20px;
                 }
+
+                img {
+                    max-height: 550px;
+                }
             }
         }
     }
@@ -1225,6 +1229,10 @@ body {
                         display: none;
                     }
                 }
+
+                img {
+                    max-height: 600px;
+                }
             }
         }
     }
@@ -1326,17 +1334,24 @@ body {
             }
 
             &__block {
-                h3 {
-                    font-size: 22px;
-                    bottom: 16px;
-                    left: 16px;
-                    right: 16px;
-                    text-align: center;
-                    width: calc(100% - 32px);
+                // h3 {
+                //     font-size: 22px;
+                //     bottom: 16px;
+                //     left: 16px;
+                //     right: 16px;
+                //     text-align: center;
+                //     width: calc(100% - 32px);
 
-                    br {
-                        display: none;
-                    }
+                //     br {
+                //         display: none;
+                //     }
+                // }
+                h3 {
+                    display: none;
+                }
+
+                img {
+                    clip-path: inset(0 0 200px 0);
                 }
             }
         }
@@ -1350,7 +1365,7 @@ body {
         flex-direction: column;
         gap: 40px;
         padding: 0 10px;
-        // overflow-x: hidden;
+        overflow: hidden;
 
         &-text {
             width: 100%;
@@ -1432,13 +1447,17 @@ body {
             &__block {
                 h3 {
                     font-size: 20px;
-                    bottom: 12px;
+                    bottom: -300px;
                     left: 12px;
                     right: 12px;
                     text-align: center;
                     line-height: 1.2;
+                    z-index: 10;
                 }
 
+                img {
+                    object-position: center -120px;
+                }
             }
         }
     }
