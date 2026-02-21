@@ -293,11 +293,13 @@ body {
     align-items: center;
     background:
         linear-gradient(to top,
-            #09090b 0%,
-            rgba(0, 0, 0, 0.8) 20%,
-            rgba(0, 0, 0, 0.4) 40%,
-            rgba(0, 0, 0, 0) 60%),
-        url('../img/hero4k.png');
+            #000000 0%,
+            #000000 20%,
+            rgba(0, 0, 0, 0.9) 40%,
+            rgba(0, 0, 0, 0.7) 60%,
+            rgba(0, 0, 0, 0.4) 100%,
+            rgba(0, 0, 0, 0) 100%),
+        url('../img/пма4к.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position:
@@ -818,8 +820,8 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 100px;
-    // border: 1px solid red;
-    overflow: hidden;
+    position: relative;
+    overflow: visible;
 
     &-text {
         display: flex;
@@ -918,16 +920,17 @@ body {
         width: 50%;
         width: 720px;
         height: 720px;
-        margin-right: 22px;
+        margin-right: 40px;
 
         span {
             width: 800px;
             height: 1000px;
             transform: skew(-20deg);
-            z-index: -10;
             background-color: #3c83f605;
             position: absolute;
             top: -150px;
+            left: -40px;
+            z-index: -10;
         }
 
         &__block {
@@ -935,9 +938,10 @@ body {
 
             img {
                 display: block;
-                object-fit: contain;
+                object-fit: cover;
+                object-position: center -220px;
                 width: 100%;
-                height: auto;
+                max-height: 640px;
                 z-index: 5;
                 filter: grayscale(100%);
                 transition: all 0.5s ease;
@@ -953,9 +957,13 @@ body {
                 font-style: italic;
                 font-size: 36px;
                 position: absolute;
-                z-index: 10;
                 bottom: 24px;
                 left: 24px;
+                z-index: 10;
+
+                background: rgba(0, 0, 0, 0.6);
+                padding: 12px 18px;
+                backdrop-filter: blur(4px);
             }
         }
 
@@ -964,9 +972,9 @@ body {
             border: 3px solid $red;
             width: 100%;
             height: 100%;
-            z-index: -5;
-            margin-top: 20px;
-            margin-left: 20px;
+            top: 20px;
+            left: 20px;
+            z-index: -1;
         }
     }
 }
@@ -1430,6 +1438,7 @@ body {
                     text-align: center;
                     line-height: 1.2;
                 }
+
             }
         }
     }
@@ -1565,15 +1574,15 @@ body {
                 bottom: 16px;
             }
 
-            span {
-                width: 50px;
-                height: 6px;
-                background: $red;
-                position: absolute;
-                z-index: 5;
-                left: 16px;
-                bottom: 136px;
-            }
+            // span {
+            //     width: 50px;
+            //     height: 6px;
+            //     background: $red;
+            //     position: absolute;
+            //     z-index: 5;
+            //     left: 16px;
+            //     bottom: 136px;
+            // }
         }
 
         .back {
@@ -2169,128 +2178,6 @@ body {
     }
 }
 
-// @media (hover: hover) and (pointer: fine) {
-//     .coach {
-//         &__block {
-//             .coach__inner {
-//                 &:hover {
-//                     transform: rotateY(180deg);
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-// @media (hover: none) and (pointer: coarse) {
-//     .coach {
-//         &__block {
-//             .coach__inner {
-
-//                 &:hover {
-//                     transform: none;
-//                 }
-
-//                 &:active {
-//                     transform: rotateY(180deg);
-//                     transition: transform 0.4s ease;
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-// @media (max-width: 280px) {
-//     .coach {
-//         &__block {
-//             max-width: 240px;
-//             height: 360px;
-
-//             .front {
-//                 img {
-//                     height: 358px;
-//                 }
-
-//                 h4 {
-//                     font-size: 15px;
-//                     bottom: 50px;
-//                 }
-
-//                 p {
-//                     font-size: 10px;
-//                 }
-
-//                 span {
-//                     bottom: 85px;
-//                 }
-//             }
-
-//             .back {
-//                 padding: 12px 8px;
-
-//                 h5 {
-//                     font-size: 12px;
-//                 }
-
-//                 .back-info {
-//                     font-size: 10px;
-//                 }
-
-//                 .signup-btn {
-//                     padding: 6px 12px;
-//                     font-size: 10px;
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-// @media (max-width: 767px) and (orientation: landscape) {
-//     .coach {
-//         .coach-wrapper {
-//             flex-direction: row;
-//             flex-wrap: wrap;
-//             justify-content: center;
-//             gap: 20px;
-//         }
-
-//         &__block {
-//             width: 45%;
-//             max-width: none;
-//             height: 380px;
-
-//             .front {
-//                 img {
-//                     height: 378px;
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-// @media (max-width: 767px) {
-//     .coach {
-//         &__block {
-//             .back {
-//                 h5 {
-//                     word-wrap: break-word;
-//                     overflow-wrap: break-word;
-//                     hyphens: auto;
-//                 }
-
-//                 .back-info {
-//                     br {
-//                         display: none; // Убираем принудительные переносы на мобильных
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
 // atmosphere
 
 .atmosphere {
@@ -2417,20 +2304,20 @@ body {
                 height: auto;
                 object-fit: cover;
                 display: block;
-                filter: grayscale(100%);
+                // filter: grayscale(100%);
                 transition: all 0.3s ease;
 
-                &:nth-child(2) {
-                    filter: grayscale(0%);
+                // &:nth-child(2) {
+                //     filter: grayscale(0%);
 
-                    &:hover {
-                        filter: grayscale(100%);
-                    }
-                }
+                //     &:hover {
+                //         filter: grayscale(100%);
+                //     }
+                // }
 
-                &:hover {
-                    filter: grayscale(0%);
-                }
+                // &:hover {
+                //     filter: grayscale(0%);
+                // }
             }
         }
     }
@@ -3031,14 +2918,14 @@ body {
 
 // Аккордеон расписания
 .acc-schedule {
-    display: none; 
+    display: none;
     flex-direction: column;
     gap: 12px;
     width: 100%;
     margin-top: -30px;
 
     @media (max-width: 1023px) {
-        display: flex; 
+        display: flex;
     }
 }
 
@@ -3777,6 +3664,7 @@ body {
                         }
                     }
                 }
+
                 .development {
                     color: $white;
                 }
