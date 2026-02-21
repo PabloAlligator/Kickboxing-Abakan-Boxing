@@ -941,7 +941,7 @@ body {
                 object-fit: cover;
                 object-position: center -220px;
                 width: 100%;
-                max-height: 640px;
+                max-height: 720px;
                 z-index: 5;
                 filter: grayscale(100%);
                 transition: all 0.5s ease;
@@ -960,7 +960,6 @@ body {
                 bottom: 24px;
                 left: 24px;
                 z-index: 10;
-
                 background: rgba(0, 0, 0, 0.6);
                 padding: 12px 18px;
                 backdrop-filter: blur(4px);
@@ -1029,6 +1028,10 @@ body {
             &__block {
                 h3 {
                     font-size: 32px;
+                }
+
+                img {
+                    max-height: 635px;
                 }
             }
         }
