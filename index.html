@@ -32,7 +32,16 @@
                     <li><a href="#gallery" class="nav-link">ГАЛЕРЕЯ</a></li>
                     <li><a href="#raspisanie" class="nav-link">РАСПИСАНИЕ</a></li>
                     <li><a href="#contacts" class="nav-link">КОНТАКТЫ</a></li>
-                    <li> <button class="header-btn">ЗАПИСАТЬСЯ</button></li>
+
+                    <!-- Ссылки только для мобильного меню -->
+                    <li class="mobile-only burger-socmedia">
+                        <a href="https://t.me/SodruzhestvoAbakan_bot" target="_blank">
+                            <img src="site/img/icons8-телеграмма-24.png" alt="tg-bot">
+                        </a>
+                        <a href="tel:+79233906649">
+                            <img src="site/img/icons8-телефон-50 (1).png" alt="tel">
+                        </a>
+                    </li>
                 </ul>
             </nav>
 
@@ -42,6 +51,7 @@
                 <span class="burger-line"></span>
             </button>
 
+            <!-- Кнопка для десктопа -->
             <div class="header-cta">
                 <button class="header-btn">ЗАПИСАТЬСЯ</button>
             </div>
@@ -65,7 +75,7 @@
             </p>
 
             <div class="hero-container__btn">
-                <a href="#raspisanie" class="hero-container__btn-start">НАЧАТЬ ТРЕНИРОВКИ</a>
+                <a href="https://t.me/SodruzhestvoAbakan_bot" class="hero-container__btn-start">НАЧАТЬ ТРЕНИРОВКИ</a>
                 <a href="#about" class="hero-container__btn-more">УЗНАТЬ БОЛЬШЕ</a>
             </div>
         </div>
@@ -149,7 +159,7 @@
                     <div class="front">
                         <img src="site/img/KVE.jpg" alt="Харюшин Всеволод Евгеньевич">
                         <!-- <span></span> -->
-                        <h4>ХАРЮШИН ВСЕВОЛОД <br> ЕВГЕНЪЕВИЧ</h4>
+                        <h4>ХАРЮШИН ВСЕВОЛОД <br> ЕВГЕНЬЕВИЧ</h4>
                         <p>ТРЕНЕР ПО БОКСУ<br>И КИКБОКСИНГУ</p>
                     </div>
                     <div class="back">
@@ -197,7 +207,7 @@
             <div class="atmosphere-photo">
                 <div class="atmosphere-photo__top">
                     <div class="atmosphere-photo__top-wrapper">
-                        
+
                         <img src="site/img/хиро2.jpg" alt="">
                     </div>
                     <div class="atmosphere-photo__top-wrapper">
@@ -433,25 +443,44 @@
                 <div class="form-card">
                     <h2 class="form-title">ЗАПИШИСЬ НА ПРОБНУЮ ТРЕНИРОВКУ</h2>
 
-                    <form class="form-content">
+                    <!-- Уведомление об успехе -->
+                    <div class="form-success" id="successMessage" style="display: none;">
+                        <div class="success-icon">✓</div>
+                        <h3>Заявка отправлена!</h3>
+                        <p>Мы получили вашу заявку и скоро свяжемся с вами.</p>
+                        <button type="button" class="form-btn form-btn--secondary" onclick="resetForm()">Отправить
+                            ещё</button>
+                    </div>
+
+                    <!-- Уведомление об ошибке -->
+                    <div class="form-error" id="errorMessage" style="display: none;">
+                        <div class="error-icon">✕</div>
+                        <h3>Ошибка отправки</h3>
+                        <p>Попробуйте позже или позвоните нам.</p>
+                    </div>
+
+                    <form class="form-content" id="signupForm">
                         <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Ваше имя" required>
+                            <input type="text" name="from_name" class="form-input" placeholder="Ваше имя" required>
                         </div>
 
                         <div class="form-group">
-                            <input type="tel" class="form-input" placeholder="Телефон" required>
+                            <input type="tel" name="phone" class="form-input" placeholder="Телефон" required
+                                pattern="\d*" inputmode="numeric">
                         </div>
 
                         <div class="form-group">
-                            <select class="form-input form-select" required>
+                            <select name="program" class="form-input form-select" required>
                                 <option value="" disabled selected>Выберите программу</option>
-                                <option value="boxing">Бокс</option>
-                                <option value="kickboxing">Кикбоксинг</option>
-                                <option value="kids">Детская программа</option>
+                                <option value="Бокс">Бокс</option>
+                                <option value="Кикбоксинг">Кикбоксинг</option>
+                                <option value="Детская программа">Детская программа</option>
                             </select>
                         </div>
 
-                        <button type="submit" class="form-btn">ЗАПИСАТЬСЯ БЕСПЛАТНО</button>
+                        <button type="submit" class="form-btn" id="submitBtn">
+                            <span class="btn-text">ЗАПИСАТЬСЯ БЕСПЛАТНО</span>
+                        </button>
 
                         <p class="form-disclaimer">
                             Нажимая "записаться бесплатно", вы соглашаетесь с политикой конфиденциальности
@@ -563,6 +592,22 @@
             </div>
         </div>
     </div>
+
+    <div class="fab-contact">
+        <button class="fab-toggle" aria-label="Связаться с нами">
+            <span class="fab-icon">💬</span>
+        </button>
+
+        <div class="fab-menu">
+            <a href="https://t.me/SodruzhestvoAbakan_bot" target="_blank" class="fab-item telegram" title="Telegram">
+                <img src="site/img/icons8-телеграмма-24.png" alt="TG">
+            </a>
+            <a href="tel:+79233906649" class="fab-item phone" title="Позвонить">
+                <img src="site/img/icons8-телефон-50 (1).png" alt="Тел">
+            </a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="site/js.js/script.js"></script>
 </body>
 
