@@ -1,63 +1,63 @@
 window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  setTimeout(() => {
-    preloader.classList.add('hide');
-  }, 400);
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+        preloader.classList.add('hide');
+    }, 400);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.header-nav');
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.header-nav');
 
-  if (!burger || !nav) {
-    console.log('burger или nav не найден');
-    return;
-  }
-
-  burger.addEventListener('click', (e) => {
-    e.stopPropagation();
-
-    burger.classList.toggle('active');
-    nav.classList.toggle('active');
-
-    document.body.style.overflow =
-      nav.classList.contains('active') ? 'hidden' : '';
-  });
-
-  document.addEventListener('click', (e) => {
-    if (
-      nav.classList.contains('active') &&
-      !nav.contains(e.target) &&
-      !burger.contains(e.target)
-    ) {
-      burger.classList.remove('active');
-      nav.classList.remove('active');
-      document.body.style.overflow = '';
+    if (!burger || !nav) {
+        console.log('burger или nav не найден');
+        return;
     }
-  });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      burger.classList.remove('active');
-      nav.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
+    burger.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        burger.classList.toggle('active');
+        nav.classList.toggle('active');
+
+        document.body.style.overflow =
+            nav.classList.contains('active') ? 'hidden' : '';
+    });
+
+    document.addEventListener('click', (e) => {
+        if (
+            nav.classList.contains('active') &&
+            !nav.contains(e.target) &&
+            !burger.contains(e.target)
+        ) {
+            burger.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            burger.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
 });
 
 
 // плавность прокуртки 
 // Плавная прокрутка по якорным ссылкам
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-    
+
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 // Закрываем бургер-меню если открыто
                 const nav = document.querySelector('.header-nav');
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     burger?.classList.remove('active');
                     document.body.style.overflow = '';
                 }
-                
+
                 // Плавная прокрутка
                 targetSection.scrollIntoView({
                     behavior: 'smooth',
@@ -80,18 +80,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // Для мобильных устройств: обработка кликов по карточкам
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const coachCards = document.querySelectorAll('.coach__inner');
-    
+
     coachCards.forEach(card => {
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
-        
+
         if (isTouchDevice) {
             let isFlipped = false;
-            
-            card.addEventListener('click', function(e) {
+
+            card.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 if (!isFlipped) {
                     coachCards.forEach(otherCard => {
                         if (otherCard !== card && otherCard.classList.contains('flipped')) {
@@ -100,9 +100,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     });
                 }
-                
+
                 isFlipped = !isFlipped;
-                
+
                 if (isFlipped) {
                     this.classList.add('flipped');
                     this.style.transform = 'rotateY(180deg)';
@@ -111,8 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.style.transform = 'rotateY(0deg)';
                 }
             });
-            
-            document.addEventListener('click', function(e) {
+
+            document.addEventListener('click', function (e) {
                 if (!card.contains(e.target) && isFlipped) {
                     card.classList.remove('flipped');
                     card.style.transform = 'rotateY(0deg)';
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Получаем имя тренера если клик из карточки
             let coachName = '';
             const coachCard = this.closest('.coach__block');
-            
+
             if (coachCard) {
                 const coachNameElement = coachCard.querySelector('h4');
                 if (coachNameElement) {
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (coachName) {
                     // Сохраняем в sessionStorage чтобы использовать после прокрутки
                     sessionStorage.setItem('selectedCoach', coachName);
-                    
+
                     // Показываем уведомление
                     showCoachNotification(coachName);
                 }
@@ -191,7 +191,7 @@ function showCoachNotification(coachName) {
             <button onclick="this.parentElement.parentElement.remove()">✕</button>
         </div>
     `;
-    
+
     // Стили для уведомления
     notification.style.cssText = `
         position: fixed;
@@ -208,13 +208,13 @@ function showCoachNotification(coachName) {
         box-shadow: 0 4px 20px rgba(219, 39, 39, 0.4);
         animation: slideDown 0.3s ease;
     `;
-    
+
     notification.querySelector('.notification-content').style.cssText = `
         display: flex;
         align-items: center;
         gap: 15px;
     `;
-    
+
     notification.querySelector('button').style.cssText = `
         background: none;
         border: none;
@@ -238,9 +238,9 @@ function showCoachNotification(coachName) {
         }
     `;
     document.head.appendChild(style);
-    
+
     document.body.appendChild(notification);
-    
+
     // Автоматически скрыть через 5 секунд
     setTimeout(() => {
         if (notification.parentElement) {
@@ -250,26 +250,26 @@ function showCoachNotification(coachName) {
 }
 
 // Аккордеон для расписания
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const accItems = document.querySelectorAll('.acc-item');
-    
+
     accItems.forEach(item => {
         const head = item.querySelector('.acc-head');
-        
+
         head.addEventListener('click', () => {
-        
+
             accItems.forEach(other => {
                 if (other !== item && other.classList.contains('active')) {
                     other.classList.remove('active');
                     other.querySelector('.acc-content').style.maxHeight = null;
                 }
             });
-            
+
             const isActive = item.classList.contains('active');
             const content = item.querySelector('.acc-content');
-            
+
             item.classList.toggle('active');
-            
+
             if (!isActive) {
                 content.style.maxHeight = content.scrollHeight + 'px';
             } else {
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // отправка
 // Инициализация EmailJS
-(function() {
+(function () {
     emailjs.init("r0VmzggkXuhBsXCeb");
 })();
 
@@ -292,25 +292,25 @@ const errorMessage = document.getElementById('errorMessage');
 const submitBtn = document.getElementById('submitBtn');
 const btnText = submitBtn.querySelector('.btn-text');
 
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', function (e) {
     e.preventDefault();
-    
+
     submitBtn.disabled = true;
     btnText.textContent = 'Отправка...';
-    
+
     emailjs.sendForm('shum.pasha.03@gmail.com', 'template_npg3ias', form)
-        .then(function() {
+        .then(function () {
             form.style.display = 'none';
             successMessage.style.display = 'block';
             errorMessage.style.display = 'none';
             sessionStorage.removeItem('selectedCoach');
-        }, function(error) {
+        }, function (error) {
             console.log('Ошибка:', error);
             form.style.display = 'none';
             errorMessage.style.display = 'block';
             successMessage.style.display = 'none';
         })
-        .finally(function() {
+        .finally(function () {
             submitBtn.disabled = false;
             btnText.textContent = 'ЗАПИСАТЬСЯ БЕСПЛАТНО';
         });
@@ -325,21 +325,64 @@ function resetForm() {
 }
 
 // FAB (Floating Action Button)
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const fabToggle = document.querySelector('.fab-toggle');
     const fabMenu = document.querySelector('.fab-menu');
-    
+
     if (fabToggle && fabMenu) {
-        fabToggle.addEventListener('click', function() {
+        fabToggle.addEventListener('click', function () {
             this.classList.toggle('active');
             fabMenu.classList.toggle('active');
         });
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (!fabToggle.contains(e.target) && !fabMenu.contains(e.target)) {
                 fabToggle.classList.remove('active');
                 fabMenu.classList.remove('active');
             }
         });
     }
+});
+
+
+
+// news swiper
+
+const newsSwiper = new Swiper('.news-slider', {
+
+    slidesPerView: 3,
+    spaceBetween: 30,
+
+    loop: true,
+
+    autoplay: {
+        delay: 4500
+    },
+
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+    },
+
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+    },
+
+    breakpoints: {
+
+        320: {
+            slidesPerView: 1
+        },
+
+        768: {
+            slidesPerView: 2
+        },
+
+        1024: {
+            slidesPerView: 3
+        }
+
+    }
+
 });

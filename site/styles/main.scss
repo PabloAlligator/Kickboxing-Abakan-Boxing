@@ -1595,12 +1595,12 @@ body {
             transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); // Более плавная кривая
             transform-style: preserve-3d;
             cursor: pointer;
-            
+
             // Убираем :active и :focus, оставляем только :hover
             &:hover {
                 transform: rotateY(180deg);
             }
-            
+
             // Добавляем класс для программного переворота (если нужен)
             &.flipped {
                 transform: rotateY(180deg);
@@ -1618,7 +1618,7 @@ body {
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden; // Для Safari
             z-index: 2;
-            
+
             // Добавляем аппаратное ускорение
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
@@ -1630,7 +1630,7 @@ body {
                 height: 478px;
                 filter: brightness(60%);
                 transition: all 0.5s ease;
-                
+
                 // Убираем мерцание при перевороте
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
@@ -1773,6 +1773,7 @@ body {
         }
     }
 }
+
 /* Responsive: .coach section (requested breakpoints) */
 
 @media (min-width: 1440px) and (max-width: 1720px) {
@@ -2273,6 +2274,7 @@ body {
 
     &-wrapper {
         max-width: 1720px;
+        width: 100%;
     }
 
     .atmosphere-title {
@@ -2851,6 +2853,319 @@ body {
     }
 }
 
+// news
+
+.news {
+    width: 100%;
+    padding: 100px 0;
+    display: flex;
+    justify-content: center;
+    background-color: #0e0e14;
+    position: relative;
+
+    &-container {
+        max-width: 1720px;
+        width: 100%;
+        padding: 0 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 64px;
+
+        h3 {
+            font-family: $RussoOne;
+            font-size: 20px;
+            letter-spacing: 3px;
+            color: $red;
+        }
+
+        h2 {
+            font-family: $RussoOne;
+            font-style: italic;
+            font-size: 48px;
+            color: $white;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        span {
+            width: 100px;
+            height: 6px;
+            background: $blue;
+            margin-bottom: 24px;
+        }
+
+        p {
+            font-family: $inter;
+            font-size: 18px;
+            color: $grey;
+        }
+    }
+
+
+    &-slider {
+        width: 100%;
+
+        .swiper-pagination {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 1;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #db2727;
+            transform: scale(1.2);
+        }
+    }
+
+    &-card {
+        position: relative;
+        background: linear-gradient(135deg, rgba(25, 25, 35, 0.95) 0%, rgba(40, 40, 55, 0.95) 100%);
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: all 0.35s ease;
+
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+    }
+
+    &-image-wrapper {
+        width: 100%;
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover & img {
+            transform: scale(1.08);
+        }
+    }
+
+    &-date {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+        color: $white;
+        font-family: "Inter", sans-serif;
+    }
+
+    &-content {
+        padding: 22px 22px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-grow: 1;
+
+        h3 {
+            font-family: "Russo One", sans-serif;
+            font-size: 20px;
+            color: $white;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        p {
+            font-family: "Inter", sans-serif;
+            font-size: 15px;
+            color: $grey;
+            line-height: 1.5;
+        }
+    }
+
+    &-link {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+    }
+
+    &-footer {
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .news-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .news-more {
+
+            .btn-more {
+                display: inline-block;
+                padding: 14px 30px;
+                border-radius: 4px;
+                border: 1px solid #db2727;
+                color: #ffffff;
+                font-family: "Russo One", sans-serif;
+                font-size: 16px;
+                letter-spacing: 1px;
+                text-decoration: none;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: #db2727;
+                    transform: translateY(-3px);
+                    box-shadow: 0 10px 25px rgba(219, 39, 39, 0.4);
+                }
+            }
+
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+
+            position: static;
+            margin: 0;
+
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            cursor: pointer;
+
+            transition: all 0.25s ease;
+
+            /* убираем стандартные стрелки swiper */
+            &::after {
+                display: none;
+            }
+
+            svg {
+                width: 18px;
+                height: 18px;
+                stroke: #ffffff;
+                stroke-width: 2;
+                fill: none;
+                transition: transform 0.25s ease;
+            }
+
+            &:hover {
+                background: #db2727;
+                border-color: #db2727;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(219, 39, 39, 0.4);
+
+                svg {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1024px) {
+
+    .news {
+
+        padding: 90px 0;
+
+        &-title {
+            font-size: 38px;
+            margin-bottom: 50px;
+        }
+
+        &-image-wrapper {
+            height: 200px;
+        }
+
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .news {
+
+        padding: 80px 0;
+
+        &-title {
+            font-size: 32px;
+        }
+
+        &-content {
+
+            h3 {
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+        }
+
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .news {
+
+        &-title {
+            h3 {
+                font-size: 13px;
+            }
+
+            h2 {
+                font-size: 28px
+            }
+        }
+
+        &-image-wrapper {
+            height: 180px;
+        }
+
+    }
+
+}
+
 // connect
 
 .connect {
@@ -2865,10 +3180,15 @@ body {
 
     &-container {
         max-width: 1720px;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         gap: 64px;
         align-items: center;
+
+        .schedule-event {
+            display: none;
+        }
     }
 
     &-calendar {
@@ -2899,7 +3219,7 @@ body {
 
         span {
             width: 100px;
-            height: 4px;
+            height: 6px;
             background: $red;
             margin-bottom: 24px;
         }
