@@ -2962,6 +2962,7 @@ body {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: 50% 20%;
             transition: transform 0.5s ease;
         }
 
@@ -3060,17 +3061,12 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
-
             border-radius: 50%;
-
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
-
             cursor: pointer;
-
             transition: all 0.25s ease;
 
-            /* убираем стандартные стрелки swiper */
             &::after {
                 display: none;
             }

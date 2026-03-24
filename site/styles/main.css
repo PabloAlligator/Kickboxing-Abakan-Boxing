@@ -2344,6 +2344,8 @@ body {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -o-object-position: 50% 20%;
+     object-position: 50% 20%;
   transition: transform 0.5s ease;
 }
 .news-card:hover .news-image-wrapper img {
@@ -2429,7 +2431,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition: all 0.25s ease;
-  /* убираем стандартные стрелки swiper */
 }
 .news-footer .swiper-button-prev::after,
 .news-footer .swiper-button-next::after {

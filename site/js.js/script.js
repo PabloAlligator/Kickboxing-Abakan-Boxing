@@ -298,7 +298,7 @@ form.addEventListener('submit', function (e) {
     submitBtn.disabled = true;
     btnText.textContent = 'Отправка...';
 
-    emailjs.sendForm('shum.pasha.03@gmail.com', 'template_npg3ias', form)
+    emailjs.sendForm('service_qxejzo5', 'template_npg3ias', form)
         .then(function () {
             form.style.display = 'none';
             successMessage.style.display = 'block';
