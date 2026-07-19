@@ -20,7 +20,7 @@ $RussoOne: RussoOne;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    cursor: url('../img/bush1.png') 4 4, auto;
+    // cursor: url('../img/bush1.png') 4 4, auto;
 
 }
 
@@ -31,57 +31,57 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: url('../img/bush1.png') 4 4, auto;
+    // cursor: url('../img/bush1.png') 4 4, auto;
 }
 
-#preloader {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, #0b0f14, #000);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
-}
+// #preloader {
+//     position: fixed;
+//     inset: 0;
+//     background: radial-gradient(circle at center, #0b0f14, #000);
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     z-index: 9999;
+//     transition: opacity 0.6s ease, visibility 0.6s ease;
+// }
 
-#preloader.hide {
-    opacity: 0;
-    visibility: hidden;
-}
+// #preloader.hide {
+//     opacity: 0;
+//     visibility: hidden;
+// }
 
-.preloader-content {
-    width: 520px;
-    max-width: 80vw;
-}
+// .preloader-content {
+//     width: 520px;
+//     max-width: 80vw;
+// }
 
-/* ЛОГОТИП */
-.preloader-content img {
-    width: 100%;
-    height: auto;
-    animation: logoGlow 2.6s ease-in-out infinite;
-}
+// /* ЛОГОТИП */
+// .preloader-content img {
+//     width: 100%;
+//     height: auto;
+//     animation: logoGlow 2.6s ease-in-out infinite;
+// }
 
-/* СВЕЧЕНИЕ */
-@keyframes logoGlow {
-    0% {
-        transform: scale(1);
-        filter:
-            drop-shadow(0 0 10px rgba(255, 0, 0, 0.35)) drop-shadow(0 0 25px rgba(255, 0, 0, 0.25));
-    }
+// /* СВЕЧЕНИЕ */
+// @keyframes logoGlow {
+//     0% {
+//         transform: scale(1);
+//         filter:
+//             drop-shadow(0 0 10px rgba(255, 0, 0, 0.35)) drop-shadow(0 0 25px rgba(255, 0, 0, 0.25));
+//     }
 
-    50% {
-        transform: scale(1.04);
-        filter:
-            drop-shadow(0 0 22px rgba(255, 0, 0, 0.65)) drop-shadow(0 0 55px rgba(255, 0, 0, 0.4));
-    }
+//     50% {
+//         transform: scale(1.04);
+//         filter:
+//             drop-shadow(0 0 22px rgba(255, 0, 0, 0.65)) drop-shadow(0 0 55px rgba(255, 0, 0, 0.4));
+//     }
 
-    100% {
-        transform: scale(1);
-        filter:
-            drop-shadow(0 0 10px rgba(255, 0, 0, 0.35)) drop-shadow(0 0 25px rgba(255, 0, 0, 0.25));
-    }
-}
+//     100% {
+//         transform: scale(1);
+//         filter:
+//             drop-shadow(0 0 10px rgba(255, 0, 0, 0.35)) drop-shadow(0 0 25px rgba(255, 0, 0, 0.25));
+//     }
+// }
 
 
 // HEADER
@@ -331,7 +331,7 @@ body {
     }
 }
 
-// HERO 
+// HERO
 
 .hero {
     width: 100%;
@@ -5033,6 +5033,16 @@ body {
     transition: all 0.3s ease;
     z-index: 2;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+     img {
+        display: block;
+        object-fit: cover;
+        max-width: 28px;
+        height: auto;
+    }
 
     // &:hover {
     //     transform: scale(1.1);

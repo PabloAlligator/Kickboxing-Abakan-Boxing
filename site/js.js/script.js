@@ -1,9 +1,9 @@
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    setTimeout(() => {
-        preloader.classList.add('hide');
-    }, 400);
-});
+// window.addEventListener('load', () => {
+//     const preloader = document.getElementById('preloader');
+//     setTimeout(() => {
+//         preloader.classList.add('hide');
+//     }, 400);
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
     const burger = document.querySelector('.burger');
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// плавность прокуртки 
+// плавность прокуртки
 // Плавная прокрутка по якорным ссылкам
 document.addEventListener('DOMContentLoaded', function () {
     const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
