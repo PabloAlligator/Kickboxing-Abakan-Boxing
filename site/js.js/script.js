@@ -78,6 +78,80 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Публичные контакты и расписание из Sodruzhestvo Control.
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        const [settingsResponse, scheduleResponse] = await Promise.all([
+            fetch('/api/public/settings'),
+            fetch('/api/public/schedule')
+        ]);
+
+        if (settingsResponse.ok) {
+            const settings = await settingsResponse.json();
+            document.querySelectorAll('.header-btn, .signup-btn, .footer-col__contacts a[href^="https://t.me/"], .fab-item.telegram, .burger-socmedia a:first-child')
+                .forEach(link => { link.href = settings.telegramUrl; });
+        }
+
+        if (scheduleResponse.ok) {
+            const { groups } = await scheduleResponse.json();
+            if (groups.length) renderPublicSchedule(groups);
+        }
+    } catch {
+        // Статическое расписание остаётся рабочим, если сервер временно недоступен.
+    }
+});
+
+function renderPublicSchedule(groups) {
+    const dayNames = ['', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+    const days = [1, 2, 3, 4, 5, 6, 7]
+        .map(day => ({ day, groups: groups.filter(group => group.days.includes(day)) }))
+        .filter(item => item.groups.length);
+    const desktop = document.querySelector('[data-public-schedule-desktop]');
+    const mobile = document.querySelector('[data-public-schedule-mobile]');
+
+    if (desktop) {
+        desktop.innerHTML = days.map(item => `
+            <div class="schedule-row">
+                <div class="schedule-col schedule-col--day"><span class="schedule-label">${dayNames[item.day]}</span></div>
+                <div class="schedule-col schedule-col--time"><div class="time-group">
+                    ${item.groups.map(group => `<span>${group.startTime} <span class="group-label">${escapePublicText(group.name)}</span></span>`).join('')}
+                </div></div>
+                <div class="schedule-col schedule-col--type"><span>Бокс/Кикбоксинг</span></div>
+            </div>`).join('');
+    }
+
+    if (mobile) {
+        mobile.innerHTML = days.map(item => `
+            <div class="acc-item">
+                <div class="acc-head"><span class="acc-day">${dayNames[item.day]}</span><span class="acc-icon">+</span></div>
+                <div class="acc-content"><div class="acc-time"><div class="time-group">
+                    ${item.groups.map(group => `<span>${group.startTime} <span class="group-type">${escapePublicText(group.name)}</span></span>`).join('')}
+                </div></div><div class="acc-prog">Бокс/Кикбоксинг</div></div>
+            </div>`).join('');
+        bindScheduleAccordion(mobile.querySelectorAll('.acc-item'));
+    }
+}
+
+function bindScheduleAccordion(items) {
+    items.forEach(item => {
+        item.querySelector('.acc-head')?.addEventListener('click', () => {
+            items.forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('active');
+                    other.querySelector('.acc-content').style.maxHeight = null;
+                }
+            });
+            const content = item.querySelector('.acc-content');
+            item.classList.toggle('active');
+            content.style.maxHeight = item.classList.contains('active') ? `${content.scrollHeight}px` : null;
+        });
+    });
+}
+
+function escapePublicText(value) {
+    return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+}
+
 
 // Для мобильных устройств: обработка кликов по карточкам
 document.addEventListener('DOMContentLoaded', function () {
@@ -90,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let isFlipped = false;
 
             card.addEventListener('click', function (e) {
+                if (e.target.closest('.signup-btn')) return;
                 e.preventDefault();
 
                 if (!isFlipped) {
@@ -123,132 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Кнопки "Записаться" - прокрутка к форме с автозаполнением
-document.addEventListener('DOMContentLoaded', function () {
-    const signupButtons = document.querySelectorAll('.header-btn, .signup-btn');
-
-    signupButtons.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            // Закрываем бургер-меню если открыто
-            const nav = document.querySelector('.header-nav');
-            const burger = document.querySelector('.burger');
-            if (nav?.classList.contains('active')) {
-                nav.classList.remove('active');
-                burger?.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            // Получаем имя тренера если клик из карточки
-            let coachName = '';
-            const coachCard = this.closest('.coach__block');
-
-            if (coachCard) {
-                const coachNameElement = coachCard.querySelector('h4');
-                if (coachNameElement) {
-                    coachName = coachNameElement.textContent.trim();
-                    // Очищаем от переносов строк и лишних пробелов
-                    coachName = coachName.replace(/\s+/g, ' ').trim();
-                }
-            }
-
-            // Прокрутка к форме
-            const targetSection = document.querySelector('#raspisanie');
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-
-                // Автозаполнение имени тренера в комментарий (если есть поле)
-                // Или можно добавить скрытое поле и заполнить его
-                if (coachName) {
-                    // Сохраняем в sessionStorage чтобы использовать после прокрутки
-                    sessionStorage.setItem('selectedCoach', coachName);
-
-                    // Показываем уведомление
-                    showCoachNotification(coachName);
-                }
-            }
-        });
-    });
-});
-
-// Показать уведомление о выбранном тренере
-function showCoachNotification(coachName) {
-    // Удаляем старое уведомление если есть
-    const oldNotification = document.querySelector('.coach-notification');
-    if (oldNotification) {
-        oldNotification.remove();
-    }
-
-    const notification = document.createElement('div');
-    notification.className = 'coach-notification';
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span>Вы выбрали: <strong>${coachName}</strong></span>
-            <button onclick="this.parentElement.parentElement.remove()">✕</button>
-        </div>
-    `;
-
-    // Стили для уведомления
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, #db2727 0%, #ff4757 100%);
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        font-family: 'Inter', sans-serif;
-        font-size: 14px;
-        z-index: 9999;
-        box-shadow: 0 4px 20px rgba(219, 39, 39, 0.4);
-        animation: slideDown 0.3s ease;
-    `;
-
-    notification.querySelector('.notification-content').style.cssText = `
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    `;
-
-    notification.querySelector('button').style.cssText = `
-        background: none;
-        border: none;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
-        padding: 0;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
-
-    // Добавляем анимацию
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-    `;
-    document.head.appendChild(style);
-
-    document.body.appendChild(notification);
-
-    // Автоматически скрыть через 5 секунд
-    setTimeout(() => {
-        if (notification.parentElement) {
-            notification.remove();
-        }
-    }, 5000);
-}
-
 // Аккордеон для расписания
 document.addEventListener('DOMContentLoaded', function () {
     const accItems = document.querySelectorAll('.acc-item');
@@ -279,50 +228,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-// отправка
-// Инициализация EmailJS
-(function () {
-    emailjs.init("r0VmzggkXuhBsXCeb");
-})();
-
-const form = document.getElementById('signupForm');
-const successMessage = document.getElementById('successMessage');
-const errorMessage = document.getElementById('errorMessage');
-const submitBtn = document.getElementById('submitBtn');
-const btnText = submitBtn.querySelector('.btn-text');
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    submitBtn.disabled = true;
-    btnText.textContent = 'Отправка...';
-
-    emailjs.sendForm('service_qxejzo5', 'template_npg3ias', form)
-        .then(function () {
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
-            sessionStorage.removeItem('selectedCoach');
-        }, function (error) {
-            console.log('Ошибка:', error);
-            form.style.display = 'none';
-            errorMessage.style.display = 'block';
-            successMessage.style.display = 'none';
-        })
-        .finally(function () {
-            submitBtn.disabled = false;
-            btnText.textContent = 'ЗАПИСАТЬСЯ БЕСПЛАТНО';
-        });
-});
-
-function resetForm() {
-    form.reset();
-    successMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
-    form.style.display = 'flex';
-    sessionStorage.removeItem('selectedCoach');
-}
 
 // FAB (Floating Action Button)
 document.addEventListener('DOMContentLoaded', function () {

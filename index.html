@@ -95,8 +95,8 @@
 
                     <!-- Ссылки только для мобильного меню -->
                     <li class="mobile-only burger-socmedia">
-                        <a href="https://t.me/SodruzhestvoAbakan_bot" target="_blank">
-                            <img src="site/img/icons8-телеграмма-24.png" alt="tg-bot">
+                        <a href="https://t.me/baikalov_art_trener" target="_blank" rel="noopener noreferrer">
+                            <img src="site/img/icons8-телеграмма-24.png" alt="Telegram клуба">
                         </a>
                         <a href="tel:+79233906649">
                             <img src="site/img/icons8-телефон-50 (1).png" alt="tel">
@@ -111,9 +111,9 @@
                 <span class="burger-line"></span>
             </button>
 
-            <!-- Кнопка для десктопа -->
             <div class="header-cta">
-                <button class="header-btn">ЗАПИСАТЬСЯ</button>
+                <a class="header-btn" href="https://t.me/baikalov_art_trener" target="_blank"
+                    rel="noopener noreferrer">НАПИСАТЬ В TELEGRAM</a>
             </div>
         </div>
     </header>
@@ -222,7 +222,8 @@
                             <p class="back-info">Опыт работы: более 12 лет</p>
                             <p class="back-info">Персональная тренировка:<br>от 2000 руб.</p>
                             <p class="back-info">Групповая тренировки:<br>от 4000 руб. в месяц</p>
-                            <button class="signup-btn">Записаться</button>
+                            <a class="signup-btn" href="https://t.me/baikalov_art_trener" target="_blank"
+                                rel="noopener noreferrer">Написать тренеру</a>
                         </div>
                     </div>
                 </div>
@@ -244,7 +245,8 @@
                             <p class="back-info">Чемпион России по кикбоксингу</p>
                             <p class="back-info">Персональная тренировка:<br>от 1500 руб.</p>
                             <p class="back-info">Групповая тренировки:<br>от 4000 руб. в месяц</p>
-                            <button class="signup-btn">Записаться</button>
+                            <a class="signup-btn" href="https://t.me/baikalov_art_trener" target="_blank"
+                                rel="noopener noreferrer">Написать тренеру</a>
                         </div>
                     </div>
                 </div>
@@ -266,7 +268,8 @@
                             <p class="back-info">Заслуженный тренер России по кикбоксингу</p>
                             <p class="back-info">Опыт работы: более 10 лет</p>
                             <p class="back-info">Персональная/групповая тренировка:<br>от 2000 руб./от 4000 руб.</p>
-                            <button class="signup-btn">Записаться</button>
+                            <a class="signup-btn" href="https://t.me/baikalov_art_trener" target="_blank"
+                                rel="noopener noreferrer">Написать тренеру</a>
                         </div>
                     </div>
                 </div>
@@ -479,7 +482,7 @@
                     </P>
                 </div>
                 <div class="connect-calendar__table">
-                    <div class="schedule-table">
+                    <div class="schedule-table" data-public-schedule-desktop>
                         <div class="schedule-row">
                             <div class="schedule-col schedule-col--day">
                                 <span class="schedule-label">Понедельник</span>
@@ -573,7 +576,7 @@
                 </div>
             </div>
             <!-- Аккордеон расписания -->
-            <div class="acc-schedule">
+            <div class="acc-schedule" data-public-schedule-mobile>
                 <div class="acc-item">
                     <div class="acc-head">
                         <span class="acc-day">Понедельник</span>
@@ -670,61 +673,6 @@
                     </div>
                 </div>
             </div>
-            <!-- connect form -->
-
-            <div class="connect-form">
-                <div class="form-card">
-                    <h2 class="form-title">ЗАПИШИСЬ НА ПРОБНУЮ ТРЕНИРОВКУ</h2>
-
-                    <!-- Уведомление об успехе -->
-                    <div class="form-success" id="successMessage" style="display: none;">
-                        <div class="success-icon">✓</div>
-                        <h3>Заявка отправлена!</h3>
-                        <p>Мы получили вашу заявку и скоро свяжемся с вами.</p>
-                        <button type="button" class="form-btn form-btn--secondary" onclick="resetForm()">Отправить
-                            ещё</button>
-                    </div>
-
-                    <!-- Уведомление об ошибке -->
-                    <div class="form-error" id="errorMessage" style="display: none;">
-                        <div class="error-icon">✕</div>
-                        <h3>Ошибка отправки</h3>
-                        <p>Попробуйте позже или позвоните нам.</p>
-                    </div>
-
-                    <form class="form-content" id="signupForm" itemscope itemtype="https://schema.org/Action"
-                        class="form-content" id="signupForm">
-                        <meta itemprop="name" content="Запись на пробную тренировку">
-                        <meta itemprop="target" content="https://t.me/SodruzhestvoAbakan_bot">
-                        <div class="form-group">
-                            <input type="text" name="from_name" class="form-input" placeholder="Ваше имя"
-                                itemprop="participant" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="tel" name="phone" class="form-input" placeholder="Телефон" required
-                                pattern="\d*" inputmode="numeric">
-                        </div>
-
-                        <div class="form-group">
-                            <select name="program" class="form-input form-select" required>
-                                <option value="" disabled selected>Выберите программу</option>
-                                <option value="Бокс">Бокс</option>
-                                <option value="Кикбоксинг">Кикбоксинг</option>
-                                <option value="Детская программа">Детская программа</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="form-btn" id="submitBtn">
-                            <span class="btn-text">ЗАПИСАТЬСЯ БЕСПЛАТНО</span>
-                        </button>
-
-                        <p class="form-disclaimer">
-                            Нажимая "записаться бесплатно", вы соглашаетесь с политикой конфиденциальности
-                        </p>
-                    </form>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -779,7 +727,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="site/js.js/script.js"></script>
 </body>
 

@@ -1,0 +1,238 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int                @id @default(autoincrement())
+  name              String
+  email             String             @unique
+  passwordHash      String
+  role              String             @default("OWNER")
+  active            Boolean            @default(true)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  personalClients   PersonalClient[]
+  personalTrainings PersonalTraining[]
+  pushSubscriptions PushSubscription[]
+  auditLogs         AuditLog[]
+  groupCoaches      GroupCoach[]
+}
+
+model Session {
+  sid       String   @id
+  data      String
+  expiresAt DateTime
+  updatedAt DateTime @updatedAt
+
+  @@index([expiresAt])
+}
+
+model Athlete {
+  id                   Int               @id @default(autoincrement())
+  fullName             String
+  status               String            @default("ACTIVE")
+  startedAt            DateTime?
+  expectedPaymentCents Int?
+  comment              String?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  memberships          GroupMembership[]
+  attendances          Attendance[]
+  payments             GroupPayment[]
+
+  @@index([status])
+  @@index([fullName])
+}
+
+model TrainingGroup {
+  id          Int               @id @default(autoincrement())
+  name        String
+  daysJson    String            @default("[]")
+  startTime   String
+  active      Boolean           @default(true)
+  showPublic  Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  memberships GroupMembership[]
+  trainings   GroupTraining[]
+  coaches     GroupCoach[]
+
+  @@index([active])
+}
+
+model GroupCoach {
+  id      Int           @id @default(autoincrement())
+  groupId Int
+  userId  Int
+  group   TrainingGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+}
+
+model GroupMembership {
+  id        Int           @id @default(autoincrement())
+  athleteId Int
+  groupId   Int
+  active    Boolean       @default(true)
+  joinedAt  DateTime      @default(now())
+  leftAt    DateTime?
+  athlete   Athlete       @relation(fields: [athleteId], references: [id], onDelete: Restrict)
+  group     TrainingGroup @relation(fields: [groupId], references: [id], onDelete: Restrict)
+
+  @@unique([athleteId, groupId])
+  @@index([groupId, active])
+  @@index([athleteId, active])
+}
+
+model GroupTraining {
+  id           Int           @id @default(autoincrement())
+  groupId      Int
+  trainingDate DateTime
+  startTime    String
+  note         String?
+  createdAt    DateTime      @default(now())
+  group        TrainingGroup @relation(fields: [groupId], references: [id], onDelete: Restrict)
+  attendances  Attendance[]
+
+  @@unique([groupId, trainingDate])
+  @@index([trainingDate])
+}
+
+model Attendance {
+  id         Int           @id @default(autoincrement())
+  trainingId Int
+  athleteId  Int
+  present    Boolean       @default(false)
+  markedAt   DateTime      @default(now())
+  training   GroupTraining @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  athlete    Athlete       @relation(fields: [athleteId], references: [id], onDelete: Restrict)
+
+  @@unique([trainingId, athleteId])
+  @@index([athleteId, markedAt])
+}
+
+model GroupPayment {
+  id          Int      @id @default(autoincrement())
+  athleteId   Int
+  paymentDate DateTime
+  amountCents Int
+  comment     String?
+  createdAt   DateTime @default(now())
+  athlete     Athlete  @relation(fields: [athleteId], references: [id], onDelete: Restrict)
+
+  @@index([paymentDate])
+  @@index([athleteId, paymentDate])
+}
+
+model PersonalClient {
+  id        Int                @id @default(autoincrement())
+  ownerId   Int
+  name      String
+  notes     String?
+  archived  Boolean            @default(false)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  owner     User               @relation(fields: [ownerId], references: [id], onDelete: Restrict)
+  trainings PersonalTraining[]
+
+  @@index([ownerId, archived])
+  @@index([ownerId, name])
+}
+
+model PersonalTraining {
+  id              Int            @id @default(autoincrement())
+  ownerId         Int
+  clientId        Int
+  startsAt        DateTime
+  priceCents      Int
+  status          String         @default("SCHEDULED")
+  comment         String?
+  reminderMinutes Int?
+  reminderSentAt  DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  owner           User           @relation(fields: [ownerId], references: [id], onDelete: Restrict)
+  client          PersonalClient @relation(fields: [clientId], references: [id], onDelete: Restrict)
+
+  @@index([ownerId, startsAt])
+  @@index([ownerId, status])
+}
+
+model ClubTask {
+  id             Int       @id @default(autoincrement())
+  title          String
+  dueAt          DateTime?
+  comment        String?
+  priority       String    @default("NORMAL")
+  completed      Boolean   @default(false)
+  completedAt    DateTime?
+  reminderAt     DateTime?
+  reminderSentAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([completed, dueAt])
+}
+
+model ExpenseCategory {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  expenses  Expense[]
+}
+
+model Expense {
+  id          Int             @id @default(autoincrement())
+  title       String
+  expenseDate DateTime
+  amountCents Int
+  comment     String?
+  categoryId  Int
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  category    ExpenseCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  @@index([expenseDate])
+  @@index([categoryId, expenseDate])
+}
+
+model PushSubscription {
+  id        Int      @id @default(autoincrement())
+  ownerId   Int
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([ownerId])
+}
+
+model AuditLog {
+  id           Int      @id @default(autoincrement())
+  actorId      Int?
+  action       String
+  entity       String?
+  entityId     String?
+  metadataJson String?
+  ip           String?
+  createdAt    DateTime @default(now())
+  actor        User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([actorId, createdAt])
+}
+
+model AppSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

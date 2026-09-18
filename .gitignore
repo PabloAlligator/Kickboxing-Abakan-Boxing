@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+!.env.example
+data/*.db
+data/*.db-*
+prisma/*.db
+prisma/*.db-*
+coverage/
+*.log
+.DS_Store
+.vscode/sftp.json
+telegram-bot/
