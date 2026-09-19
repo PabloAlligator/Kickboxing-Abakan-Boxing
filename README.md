@@ -1,84 +1,129 @@
 # Содружество
 
-Проект объединяет публичный сайт бойцовского клуба и закрытое веб-приложение `Sodruzhestvo Control`.
+Публичный сайт бойцовского клуба + закрытая внутренняя система `Sodruzhestvo Control`.
+
+Архитектура приведена к тому же принципу, что и production-проекты ShumDev/RioCar: публичная часть отделена от админских страниц, backend разбит по доменам, middleware/services вынесены отдельно.
+
+## Структура
+
+```text
+public/                 публичные HTML/robots/sitemap
+admin-pages/            отдельные закрытые страницы Control
+site/
+  styles/               SCSS публичной части и admin
+  css/                  собранные CSS
+  scripts/              публичный JS и admin JS
+  img/                   локальные изображения/PWA icons
+routes/                  доменные Express routes
+middleware/              auth / CSRF / Origin
+services/                sessions / audit / Web Push
+config/                  security config
+prisma/                  schema + production baseline migration
+data/                    production SQLite (не хранится в Git/архиве)
+scripts/                 служебные CLI-скрипты
+```
 
 ## Стек
 
-- HTML5, SCSS, Vanilla JavaScript;
-- Node.js 22+ / Express;
-- Prisma 6 / SQLite;
+- HTML5 / SCSS / Vanilla JavaScript;
+- Node.js 22+ / Express 5;
+- Prisma 6.19 / SQLite;
 - server-side sessions в SQLite;
-- Argon2id, Helmet, CSP, rate limits, CSRF/origin protection;
-- Web Push / PWA;
-- PM2 + Nginx + SSL в production.
+- Argon2id;
+- Helmet / CSP / rate limits / CSRF + Origin validation;
+- Web Push / Service Worker / PWA;
+- PM2 / Nginx / SSL.
+
+React/Vue не используются.
 
 ## Локальный запуск
 
-1. Скопировать `.env.example` в `.env`.
-2. Задать длинный `SESSION_SECRET` и два уникальных пароля OWNER.
-3. Выполнить:
-
 ```bash
+copy .env.example .env
 npm ci
 npm run prisma:generate
-npm run db:prepare
 npm run prisma:deploy
-npm run seed
+npm run owner:create
+npm run owner:create
 npm run css:min
 npm start
 ```
 
-Публичный сайт: `http://localhost:3000/`.
+Два запуска `owner:create` — для двух равноправных владельцев (Артём и Всеволод). Публичной регистрации и управления «командой» из Control нет.
 
-Закрытая система: `http://localhost:3000/admin/login`.
+- сайт: `http://localhost:3000/`
+- Control: `http://localhost:3000/admin/login`
 
-Публичной регистрации нет. Seed создаёт или обновляет только двух владельцев из `.env`.
+## ENV
 
-## Важная логика
+Обязательно заполнить:
 
-- общие финансы = групповые оплаты − расходы;
-- персональные тренировки никогда не входят в общие финансы;
-- доход персоналок учитывается только по статусу `COMPLETED`;
-- каждый запрос к персональным данным фильтруется по `ownerId` текущей сессии;
-- финансовая история и посещения не каскадно удаляются вместе со спортсменом;
-- спортсмены и группы архивируются.
+```env
+DATABASE_URL="file:../data/sodruzhestvo.db"
+SESSION_SECRET=<минимум 64 случайных символа>
+APP_ORIGIN=https://содружество-абакан.рф
+CLUB_TIMEZONE=Asia/Krasnoyarsk
+PUBLIC_PHONE=<точный телефон клуба>
+TELEGRAM_URL=https://t.me/<группа_или_канал_клуба>
+```
 
-## Web Push
+Владельцы и их пароли в `.env` не хранятся. Они создаются через `npm run owner:create`.
 
-Сгенерировать ключи:
+Для Web Push:
 
 ```bash
 npx web-push generate-vapid-keys
 ```
 
-Заполнить `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`. Push API требует HTTPS, кроме localhost. После production-деплоя каждый OWNER должен открыть «Настройки» и разрешить уведомления на своём устройстве.
+и заполнить `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`.
 
-## Production
+## Бизнес-логика
+
+- общая часть доступна обоим OWNER;
+- общие финансы = групповые оплаты − расходы;
+- персональные тренировки не входят в общие финансы;
+- каждый OWNER видит только собственных персональных клиентов/тренировки/доход;
+- ownership персоналок проверяется backend, а не только UI;
+- доход персоналок считается только по `COMPLETED`;
+- задачи общие и не имеют ответственного;
+- способы оплаты («наличные/перевод») не хранятся;
+- отдельной сущности «абонемент» нет;
+- деньги хранятся целыми копейками.
+
+## Public
+
+Публичной формы заявки и Telegram-бота нет. Телефон и Telegram-группа берутся из ENV через read-only `/api/public/config`, поэтому в HTML нет разных захардкоженных номеров или личных Telegram-аккаунтов.
+
+Новостной слайдер работает на Vanilla JS; внешний CDN Swiper удалён.
+
+## Production deploy
 
 ```bash
 npm ci
-npx prisma generate
-npm run db:prepare
-npx prisma migrate deploy
+npm run prisma:generate
+npm run prisma:deploy
+npm run css:min
+npm run owner:create   # только если владельцы ещё не созданы
 pm2 start ecosystem.config.cjs --env production
 pm2 save
 ```
 
-Nginx должен проксировать запросы на `127.0.0.1:3000`, передавать `Host`, `X-Forwarded-Proto`, `X-Forwarded-For` и обслуживать домен только по HTTPS.
+После этого:
 
-Перед первым запуском:
+1. настроить Nginx по `nginx.sodruzhestvo.example.conf`;
+2. выпустить/подключить SSL;
+3. проверить `curl https://содружество-абакан.рф/health`;
+4. войти обоими OWNER и проверить изоляцию персоналок;
+5. включить Web Push на каждом нужном устройстве;
+6. выполнить `npm test` и `npm audit --omit=dev` уже в среде с установленными зависимостями и доступом к npm registry.
 
-- задать `APP_ORIGIN=https://ваш-домен` без завершающего слеша;
-- задать `DATABASE_URL=file:../data/sodruzhestvo.db`;
-- задать `SESSION_SECRET` не короче 64 случайных символов;
-- выполнить seed с временно заданными OWNER-паролями, затем удалить значения паролей из `.env` или заменить их новыми защищённым административным способом;
-- настроить VAPID.
+## Важное перед реальным деплоем
 
-## Проверки
+В исходном архиве Work присутствовали `.env` и готовая SQLite-база. В production-пакете они удалены. Если исходный архив передавался третьим лицам, секреты из него следует считать потенциально раскрытыми и сгенерировать заново (`SESSION_SECRET`, VAPID, пароли владельцев и любые старые интеграционные ключи).
 
-```bash
-npm test
-npm audit --omit=dev
-```
+Перед публикацией также нужно подтвердить два бизнес-реквизита, которые в исходном сайте противоречили друг другу/отсутствовали:
 
-Тесты проверяют основные клубные сценарии, формулу финансов, статусы персоналок, CSRF/origin-защиту и прямые IDOR-попытки между двумя OWNER.
+- точный телефон клуба;
+- точная Telegram-группа/канал клуба.
+
+Их нужно просто внести в `.env`.

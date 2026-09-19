@@ -10,7 +10,7 @@ datasource db {
 model User {
   id                Int                @id @default(autoincrement())
   name              String
-  email             String             @unique
+  login             String             @unique
   passwordHash      String
   role              String             @default("OWNER")
   active            Boolean            @default(true)
@@ -37,7 +37,6 @@ model Athlete {
   fullName             String
   status               String            @default("ACTIVE")
   startedAt            DateTime?
-  expectedPaymentCents Int?
   comment              String?
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
@@ -229,10 +228,4 @@ model AuditLog {
 
   @@index([createdAt])
   @@index([actorId, createdAt])
-}
-
-model AppSetting {
-  key       String   @id
-  value     String
-  updatedAt DateTime @updatedAt
 }

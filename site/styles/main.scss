@@ -4337,3 +4337,51 @@ body {
     font-family: RussoOne;
     src: url(../fonts/RussoOne-Regular.ttf);
 }
+
+
+// Native news slider: no external Swiper/CDN dependency.
+.news-slider {
+    overflow: hidden;
+
+    > .swiper-wrapper {
+        display: flex;
+        gap: 30px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .swiper-slide {
+        flex: 0 0 calc((100% - 60px) / 3);
+        min-width: 0;
+        scroll-snap-align: start;
+    }
+
+    .swiper-pagination {
+        position: static;
+    }
+
+    .swiper-pagination-bullet {
+        display: block;
+        padding: 0;
+        border: 0;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 1023px) {
+    .news-slider .swiper-slide {
+        flex-basis: calc((100% - 30px) / 2);
+    }
+}
+
+@media (max-width: 767px) {
+    .news-slider .swiper-slide {
+        flex-basis: 100%;
+    }
+}
