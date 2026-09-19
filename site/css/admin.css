@@ -1211,9 +1211,15 @@ tr:last-child td {
   font-size: 10px;
   font-weight: 800;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .admin-header__notification svg {
+  width: 17px;
+  height: 17px;
+}
+
+.admin-header__notification img {
   width: 17px;
   height: 17px;
 }
@@ -1320,6 +1326,7 @@ tr:last-child td {
   .admin-header__notification svg {
     width: 18px;
     height: 18px;
+    margin-left: 6px;
   }
   .admin-sidebar {
     position: fixed;

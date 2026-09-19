@@ -64,12 +64,21 @@ self.addEventListener('push', (event) => {
     data = {};
   }
 
-  event.waitUntil(self.registration.showNotification(data.title || 'Содружество', {
+  event.waitUntil(
+  self.registration.showNotification(data.title || 'Содружество Control', {
     body: data.body || 'Новое напоминание',
     icon: '/site/img/pwa-192.png',
     badge: '/site/img/pwa-192.png',
-    data: { url: data.url || '/admin/dashboard' }
-  }));
+
+    requireInteraction: true,
+    tag: data.tag || 'sodruzhestvo-control',
+    renotify: true,
+
+    data: {
+      url: data.url || '/admin/dashboard'
+    }
+  })
+);
 });
 
 self.addEventListener('notificationclick', (event) => {

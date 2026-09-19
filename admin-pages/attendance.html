@@ -1,89 +1,278 @@
 <!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="robots" content="noindex, nofollow, noarchive">
-  <meta name="theme-color" content="#f6f5f2">
-  <title>Посещения — Sodruzhestvo Control</title>
-  <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="icon" href="/site/img/logo (2).png">
-  <link rel="stylesheet" href="/site/css/admin.min.css">
-  <script src="/site/scripts/admin/control.js" defer></script>
-</head>
-<body class="admin-dashboard-page" data-admin-page="attendance">
-  <div class="admin-shell">
-    <aside class="admin-sidebar" id="sidebar" aria-label="Разделы Control">
-      <div class="admin-sidebar__head">
-        <a class="admin-sidebar__logo" href="/admin/dashboard" aria-label="Содружество Control">
-          <img src="/site/img/logo (2).png" alt="">
-          <span><strong>Содружество</strong><small>Control</small></span>
-        </a>
-        <button class="admin-sidebar__close" type="button" data-action="close-sidebar" aria-label="Закрыть меню">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
-        </button>
-      </div>
-      <nav class="admin-sidebar__nav" aria-label="Навигация Control">
-          <a class="admin-sidebar__link" href="/admin/dashboard" data-route="dashboard"><span class="admin-sidebar__index">01</span><span>Обзор</span></a>
-          <a class="admin-sidebar__link" href="/admin/athletes" data-route="athletes"><span class="admin-sidebar__index">02</span><span>Спортсмены</span></a>
-          <a class="admin-sidebar__link" href="/admin/groups" data-route="groups"><span class="admin-sidebar__index">03</span><span>Группы</span></a>
-          <a class="admin-sidebar__link" href="/admin/attendance" data-route="attendance"><span class="admin-sidebar__index">04</span><span>Посещения</span></a>
-          <a class="admin-sidebar__link" href="/admin/payments" data-route="payments"><span class="admin-sidebar__index">05</span><span>Оплаты</span></a>
-          <a class="admin-sidebar__link" href="/admin/calendar" data-route="calendar"><span class="admin-sidebar__index">06</span><span>Календарь</span></a>
-          <a class="admin-sidebar__link" href="/admin/personal" data-route="personal"><span class="admin-sidebar__index">07</span><span>Мои персоналки</span></a>
-          <a class="admin-sidebar__link" href="/admin/tasks" data-route="tasks"><span class="admin-sidebar__index">08</span><span>Задачи</span></a>
-          <a class="admin-sidebar__link" href="/admin/expenses" data-route="expenses"><span class="admin-sidebar__index">09</span><span>Расходы</span></a>
-          <a class="admin-sidebar__link" href="/admin/statistics" data-route="statistics"><span class="admin-sidebar__index">10</span><span>Статистика</span></a>
-          <a class="admin-sidebar__link" href="/admin/settings" data-route="settings"><span class="admin-sidebar__index">11</span><span>Настройки</span></a>
-      </nav>
-      <div class="admin-sidebar__bottom">
-        <span class="admin-sidebar__caption">by ShumDev</span>
-        <a class="admin-sidebar__site-link" href="/">На сайт клуба</a>
-        <button class="admin-sidebar__logout" type="button" data-action="logout">Выйти</button>
-      </div>
-    </aside>
-
-    <div class="admin-sidebar-backdrop" data-action="close-sidebar" aria-hidden="true"></div>
-
-    <main class="admin-main">
-      <header class="admin-header">
-        <div class="admin-header__intro">
-          <span class="admin-header__eyebrow">Содружество Control</span>
-          <h1 class="admin-header__title" id="page-title">Посещения</h1>
-          <p class="admin-header__text">Управление клубом без лишней бюрократии</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="theme-color" content="#f6f5f2" />
+    <title>Посещения — Sodruzhestvo Control</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/site/img/logo (2).png" />
+    <link rel="stylesheet" href="/site/css/admin.min.css" />
+    <script src="/site/scripts/admin/control.js" defer></script>
+  </head>
+  <body class="admin-dashboard-page" data-admin-page="attendance">
+    <div class="admin-shell">
+      <aside class="admin-sidebar" id="sidebar" aria-label="Разделы Control">
+        <div class="admin-sidebar__head">
+          <a
+            class="admin-sidebar__logo"
+            href="/admin/dashboard"
+            aria-label="Содружество Control"
+          >
+            <img src="/site/img/logo (2).png" alt="" />
+            <span><strong>Содружество</strong><small>Control</small></span>
+          </a>
+          <button
+              class="admin-header__notification"
+              type="button"
+              data-action="enable-push"
+              aria-label="Включить уведомления">
+              <img src="/site/img/bell.svg" alt="уведомление">
+                <span>Уведомления</span>
+            </button>
         </div>
-        <div class="admin-header__user">
-          <div class="admin-header__user-copy">
-            <span class="admin-header__user-role">Владелец</span>
-            <strong class="admin-header__user-login" id="sidebar-user">—</strong>
-          </div>
-          <button class="admin-header__notification" type="button" data-action="enable-push" aria-label="Включить уведомления">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span>Уведомления</span>
+        <nav class="admin-sidebar__nav" aria-label="Навигация Control">
+          <a
+            class="admin-sidebar__link"
+            href="/admin/dashboard"
+            data-route="dashboard"
+            ><span class="admin-sidebar__index">01</span><span>Обзор</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/athletes"
+            data-route="athletes"
+            ><span class="admin-sidebar__index">02</span
+            ><span>Спортсмены</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/groups"
+            data-route="groups"
+            ><span class="admin-sidebar__index">03</span><span>Группы</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/attendance"
+            data-route="attendance"
+            ><span class="admin-sidebar__index">04</span
+            ><span>Посещения</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/payments"
+            data-route="payments"
+            ><span class="admin-sidebar__index">05</span><span>Оплаты</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/calendar"
+            data-route="calendar"
+            ><span class="admin-sidebar__index">06</span
+            ><span>Календарь</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/personal"
+            data-route="personal"
+            ><span class="admin-sidebar__index">07</span
+            ><span>Мои персоналки</span></a
+          >
+          <a class="admin-sidebar__link" href="/admin/tasks" data-route="tasks"
+            ><span class="admin-sidebar__index">08</span><span>Задачи</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/expenses"
+            data-route="expenses"
+            ><span class="admin-sidebar__index">09</span><span>Расходы</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/statistics"
+            data-route="statistics"
+            ><span class="admin-sidebar__index">10</span
+            ><span>Статистика</span></a
+          >
+          <a
+            class="admin-sidebar__link"
+            href="/admin/settings"
+            data-route="settings"
+            ><span class="admin-sidebar__index">11</span
+            ><span>Настройки</span></a
+          >
+        </nav>
+        <div class="admin-sidebar__bottom">
+          <span class="admin-sidebar__caption">by ShumDev</span>
+          <a class="admin-sidebar__site-link" href="/">На сайт клуба</a>
+          <button
+            class="admin-sidebar__logout"
+            type="button"
+            data-action="logout"
+          >
+            Выйти
           </button>
         </div>
-      </header>
+      </aside>
 
-      <section class="admin-content" id="app" tabindex="-1">
-        <div class="loading-state"><span class="spinner"></span><p>Загрузка данных</p></div>
+      <div
+        class="admin-sidebar-backdrop"
+        data-action="close-sidebar"
+        aria-hidden="true"
+      ></div>
+
+      <main class="admin-main">
+        <header class="admin-header">
+          <div class="admin-header__intro">
+            <span class="admin-header__eyebrow">Содружество Control</span>
+            <h1 class="admin-header__title" id="page-title">Посещения</h1>
+            <p class="admin-header__text">
+              Управление клубом без лишней бюрократии
+            </p>
+          </div>
+          <div class="admin-header__user">
+            <div class="admin-header__user-copy">
+              <span class="admin-header__user-role">Владелец</span>
+              <strong class="admin-header__user-login" id="sidebar-user"
+                >—</strong
+              >
+            </div>
+            <button
+              class="admin-header__notification"
+              type="button"
+              data-action="enable-push"
+              aria-label="Включить уведомления"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+                <path d="M10 21h4" /></svg><span>Уведомления</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="admin-content" id="app" tabindex="-1">
+          <div class="loading-state">
+            <span class="spinner"></span>
+            <p>Загрузка данных</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <nav class="admin-bottom-nav" aria-label="Основная навигация">
+      <a
+        class="admin-bottom-nav__link"
+        href="/admin/dashboard"
+        data-route="dashboard"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M4 11.5 12 5l8 6.5" />
+          <path d="M6.5 10.5V20h11v-9.5" />
+          <path d="M9.5 20v-5h5v5" /></svg><span>Главная</span></a
+      >
+      <a
+        class="admin-bottom-nav__link"
+        href="/admin/athletes"
+        data-route="athletes"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <circle cx="9" cy="8" r="3" />
+          <path d="M3.5 19c.5-3.1 2.4-5 5.5-5s5 1.9 5.5 5" />
+          <circle cx="17" cy="9" r="2.2" />
+          <path d="M15.5 14.5c2.7-.2 4.4 1.4 4.9 4" /></svg><span>Спортсмены</span></a
+      >
+      <a
+        class="admin-bottom-nav__link"
+        href="/admin/calendar"
+        data-route="calendar"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
+          <path d="M7 3.5v4M17 3.5v4M3.5 9.5h17" />
+          <path d="M8 13h3M13 13h3M8 17h3" /></svg><span>Календарь</span></a
+      >
+      <a
+        class="admin-bottom-nav__link"
+        href="/admin/personal"
+        data-route="personal"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="8" r="3" />
+          <path d="M6.5 19c.6-3.4 2.5-5.2 5.5-5.2s4.9 1.8 5.5 5.2" />
+          <path d="M18.5 5.5 20 7l-3.5 3.5" /></svg><span>Персоналки</span></a
+      >
+      <button
+        class="admin-bottom-nav__more"
+        id="mobile-menu"
+        type="button"
+        aria-label="Открыть остальные разделы"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <circle cx="5" cy="12" r="1.3" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
+          <circle
+            cx="19"
+            cy="12"
+            r="1.3"
+            fill="currentColor"
+            stroke="none"
+          /></svg><span>Ещё</span>
+      </button>
+    </nav>
+
+    <div class="modal" id="modal" hidden>
+      <div class="modal-backdrop" data-action="close-modal"></div>
+      <section
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <header>
+          <h2 id="modal-title"></h2>
+          <button
+            class="icon-button"
+            data-action="close-modal"
+            aria-label="Закрыть"
+          >
+            ×
+          </button>
+        </header>
+        <div id="modal-body"></div>
       </section>
-    </main>
-  </div>
-
-  <nav class="admin-bottom-nav" aria-label="Основная навигация">
-    <a class="admin-bottom-nav__link" href="/admin/dashboard" data-route="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"/><path d="M6.5 10.5V20h11v-9.5"/><path d="M9.5 20v-5h5v5"/></svg><span>Главная</span></a>
-    <a class="admin-bottom-nav__link" href="/admin/athletes" data-route="athletes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.5-3.1 2.4-5 5.5-5s5 1.9 5.5 5"/><circle cx="17" cy="9" r="2.2"/><path d="M15.5 14.5c2.7-.2 4.4 1.4 4.9 4"/></svg><span>Спортсмены</span></a>
-    <a class="admin-bottom-nav__link" href="/admin/calendar" data-route="calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7 3.5v4M17 3.5v4M3.5 9.5h17"/><path d="M8 13h3M13 13h3M8 17h3"/></svg><span>Календарь</span></a>
-    <a class="admin-bottom-nav__link" href="/admin/personal" data-route="personal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M6.5 19c.6-3.4 2.5-5.2 5.5-5.2s4.9 1.8 5.5 5.2"/><path d="M18.5 5.5 20 7l-3.5 3.5"/></svg><span>Персоналки</span></a>
-    <button class="admin-bottom-nav__more" id="mobile-menu" type="button" aria-label="Открыть остальные разделы" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg><span>Ещё</span></button>
-  </nav>
-
-  <div class="modal" id="modal" hidden>
-    <div class="modal-backdrop" data-action="close-modal"></div>
-    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <header><h2 id="modal-title"></h2><button class="icon-button" data-action="close-modal" aria-label="Закрыть">×</button></header>
-      <div id="modal-body"></div>
-    </section>
-  </div>
-  <div class="toast-region" id="toasts" aria-live="polite"></div>
-</body>
+    </div>
+    <div class="toast-region" id="toasts" aria-live="polite"></div>
+  </body>
 </html>

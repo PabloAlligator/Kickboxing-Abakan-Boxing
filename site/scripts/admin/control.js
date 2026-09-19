@@ -245,7 +245,47 @@ async function renderStatistics() {
 
 async function renderSettings() {
   const data = await api('/api/admin/settings');
-  app.innerHTML = `<div class="section-head"><div><h2>Настройки</h2><p>Уведомления панели</p></div></div><section><div class="panel"><h3>Уведомления</h3><p class="muted">${data.pushConfigured ? 'Сервер Web Push настроен. Разрешите уведомления на каждом нужном устройстве.' : 'Для отправки уведомлений добавьте VAPID-ключи в production .env.'}</p><button class="button button--secondary" data-action="enable-push">Включить на этом устройстве</button></div></section>`;
+
+  app.innerHTML = `
+    <div class="section-head">
+      <div>
+        <h2>Настройки</h2>
+        <p>Уведомления панели</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="panel">
+        <h3>Уведомления</h3>
+
+        <p class="muted">
+          ${
+            data.pushConfigured
+              ? 'Сервер Web Push настроен. Разрешите уведомления на каждом нужном устройстве.'
+              : 'Для отправки уведомлений добавьте VAPID-ключи в .env.'
+          }
+        </p>
+
+        <div class="button-group">
+          <button
+            class="button button--secondary"
+            data-action="enable-push"
+            type="button"
+          >
+            Включить на этом устройстве
+          </button>
+
+          <button
+            class="button button--primary"
+            data-action="test-push"
+            type="button"
+          >
+            Отправить тестовое уведомление
+          </button>
+        </div>
+      </div>
+    </section>
+  `;
 }
 
 
@@ -324,6 +364,17 @@ document.addEventListener('click' , async (event) => {
     if (action === 'new-expense') return showModal('Добавить расход', `<form class="stack-form" data-form="expense"><label>Название<input name="title" required maxlength="240"></label><div class="form-row"><label>Дата<input type="date" name="expenseDate" value="${isoDate()}" required></label><label>Сумма, ₽<input type="number" name="amount" min="1" required></label></div><label>Категория<select name="categoryId" required>${categoryOptions()}</select></label><label>Комментарий<textarea name="comment"></textarea></label><button class="button button--primary" type="submit">Сохранить расход</button></form>`);
     if (action === 'delete-expense' && confirm('Удалить расход? Общая статистика изменится.')) { await api(`/api/admin/expenses/${actionNode.dataset.id}`, { method: 'DELETE' }); toast('Расход удалён'); return route(); }
     if (action === 'enable-push') return enablePush();
+    if (action === 'test-push') {
+  const result = await api('/api/admin/push/test', {
+    method: 'POST'
+  });
+
+  toast(
+    `Тестовое уведомление отправлено${result.sent ? ` · устройств: ${result.sent}` : ''}`
+  );
+
+  return;
+}
     if (action === 'calendar-mode') { state.calendarMode = actionNode.dataset.mode; return renderCalendar(); }
   } catch (error) { toast(error.message, 'error'); }
 });
