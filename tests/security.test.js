@@ -1,9 +1,17 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const argon2 = require('argon2');
-const request = require('supertest');
 
 process.env.NODE_ENV = 'test';
+
+const testDatabaseUrl = String(process.env.DATABASE_URL || '');
+if (testDatabaseUrl !== 'file:./test.db') {
+  throw new Error(
+    'ОПАСНЫЙ ЗАПУСК ОСТАНОВЛЕН: тесты разрешены только на prisma/test.db. Используйте npm test.',
+  );
+}
+
+const argon2 = require('argon2');
+const request = require('supertest');
 process.env.SESSION_SECRET = 'test-session-secret-with-more-than-sixty-four-characters-for-sodruzhestvo';
 process.env.APP_ORIGIN = 'http://localhost';
 
@@ -44,8 +52,8 @@ test.before(async () => {
   await prisma.user.deleteMany();
 
   [artem, vsevolod] = await Promise.all([
-    prisma.user.create({ data: { name: 'Артём Байкалов', login: 'artem', passwordHash: await argon2.hash(passwords.artem), role: 'OWNER' } }),
-    prisma.user.create({ data: { name: 'Всеволод Харюшин', login: 'vsevolod', passwordHash: await argon2.hash(passwords.vsevolod), role: 'OWNER' } })
+    prisma.user.create({ data: { name: 'TEST OWNER A', login: '__test_owner_a__', passwordHash: await argon2.hash(passwords.artem), role: 'OWNER' } }),
+    prisma.user.create({ data: { name: 'TEST OWNER B', login: '__test_owner_b__', passwordHash: await argon2.hash(passwords.vsevolod), role: 'OWNER' } })
   ]);
   await prisma.expenseCategory.create({ data: { name: 'аренда' } });
 
@@ -100,6 +108,38 @@ test('базовые клубные сценарии и формула общи�
   assert.equal(archived.body.athlete.status, 'ARCHIVED');
 });
 
+test('минимальный справочник групп работает без расписания и тренеров', async () => {
+  const created = await api(artemAgent, artemCsrf, 'post', '/api/admin/groups', {
+    name: 'Новички',
+    startTime: '00:00',
+    days: [],
+    coachIds: [],
+    showPublic: false,
+  });
+  assert.equal(created.status, 201);
+  assert.equal(created.body.group.name, 'Новички');
+  assert.equal(created.body.group.startTime, '00:00');
+  assert.equal(created.body.group.showPublic, false);
+
+  const groups = await api(artemAgent, artemCsrf, 'get', '/api/admin/groups');
+  assert.equal(groups.status, 200);
+  const group = groups.body.groups.find((item) => item.id === created.body.group.id);
+  assert.ok(group);
+  assert.deepEqual(group.days, []);
+  assert.equal(group.coaches.length, 0);
+
+  const renamed = await api(artemAgent, artemCsrf, 'put', `/api/admin/groups/${group.id}`, {
+    name: 'Новички 2',
+    startTime: group.startTime,
+    days: group.days,
+    coachIds: [],
+    showPublic: group.showPublic,
+    active: group.active,
+  });
+  assert.equal(renamed.status, 200);
+  assert.equal(renamed.body.group.name, 'Новички 2');
+});
+
 test('задачи общие и возвращаются из выполненных', async () => {
   const created = await api(artemAgent, artemCsrf, 'post', '/api/admin/tasks', { title: 'Поменять лампы', priority: 'IMPORTANT' });
   assert.equal(created.status, 201);
@@ -149,6 +189,73 @@ test('персоналки изолированы по ownerId и не попа�
 
   const commonStats = await api(artemAgent, artemCsrf, 'get', '/api/admin/statistics?month=2026-09');
   assert.equal(commonStats.body.incomeCents, 400000, 'персональные доходы не должны менять общую статистику');
+});
+
+test('архивного спортсмена можно удалить навсегда вместе с его связанными данными', async () => {
+  const group = await api(artemAgent, artemCsrf, 'post', '/api/admin/groups', {
+    name: 'Группа для удаления', days: [2, 4], startTime: '19:00', coachIds: [artem.id], showPublic: false
+  });
+  assert.equal(group.status, 201);
+
+  const athlete = await api(artemAgent, artemCsrf, 'post', '/api/admin/athletes', {
+    fullName: 'Тест Удаление', groupId: group.body.group.id
+  });
+  assert.equal(athlete.status, 201);
+  const athleteId = athlete.body.athlete.id;
+
+  const payment = await api(artemAgent, artemCsrf, 'post', '/api/admin/payments', {
+    athleteId, paymentDate: '2026-09-19', amountCents: 500000
+  });
+  assert.equal(payment.status, 201);
+
+  const training = await api(artemAgent, artemCsrf, 'post', '/api/admin/trainings', {
+    groupId: group.body.group.id, trainingDate: '2026-09-19'
+  });
+  assert.equal(training.status, 201);
+
+  const attendance = await api(artemAgent, artemCsrf, 'put', `/api/admin/trainings/${training.body.training.id}/attendance`, {
+    attendance: [{ athleteId, present: true }]
+  });
+  assert.equal(attendance.status, 200);
+
+  const activeDelete = await api(artemAgent, artemCsrf, 'delete', `/api/admin/athletes/${athleteId}`);
+  assert.equal(activeDelete.status, 409, 'активного спортсмена нельзя удалить напрямую');
+
+  const archived = await api(artemAgent, artemCsrf, 'patch', `/api/admin/athletes/${athleteId}/status`, { status: 'ARCHIVED' });
+  assert.equal(archived.status, 200);
+
+  const deleted = await api(artemAgent, artemCsrf, 'delete', `/api/admin/athletes/${athleteId}`);
+  assert.equal(deleted.status, 204);
+
+  assert.equal(await prisma.athlete.count({ where: { id: athleteId } }), 0);
+  assert.equal(await prisma.groupPayment.count({ where: { athleteId } }), 0);
+  assert.equal(await prisma.attendance.count({ where: { athleteId } }), 0);
+  assert.equal(await prisma.groupMembership.count({ where: { athleteId } }), 0);
+});
+
+test('удалённый владелец не может продолжать работу через старую сессию', async () => {
+  const tempPassword = 'Temporary-Owner-Password-2026';
+  const tempOwner = await prisma.user.create({
+    data: {
+      name: 'Временный владелец',
+      login: 'temporary-owner',
+      passwordHash: await argon2.hash(tempPassword),
+      role: 'OWNER',
+    },
+  });
+
+  const tempAgent = request.agent(app);
+  const login = await api(tempAgent, null, 'post', '/api/admin/auth/login', {
+    login: tempOwner.login,
+    password: tempPassword,
+  });
+  assert.equal(login.status, 200);
+
+  await prisma.auditLog.deleteMany({ where: { actorId: tempOwner.id } });
+  await prisma.user.delete({ where: { id: tempOwner.id } });
+
+  const afterDelete = await tempAgent.get('/api/admin/auth/me');
+  assert.equal(afterDelete.status, 401);
 });
 
 test('CSRF и origin-защита отклоняют поддельные запросы, logout завершает сессию', async () => {

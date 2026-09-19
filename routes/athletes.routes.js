@@ -98,4 +98,41 @@ router.patch('/athletes/:athleteId/status', wrap(async (req, res) => {
   res.json({ athlete });
 }));
 
+
+router.delete('/athletes/:athleteId', wrap(async (req, res) => {
+  const athleteId = id(req.params.athleteId);
+
+  const athlete = await prisma.athlete.findUnique({
+    where: { id: athleteId },
+    select: {
+      id: true,
+      fullName: true,
+      status: true,
+    },
+  });
+
+  if (!athlete) {
+    return res.status(404).json({ error: 'Спортсмен не найден' });
+  }
+
+  if (athlete.status !== 'ARCHIVED') {
+    return res.status(409).json({
+      error: 'Сначала перенесите спортсмена в архив',
+    });
+  }
+
+  await prisma.$transaction(async (tx) => {
+    await tx.groupPayment.deleteMany({ where: { athleteId } });
+    await tx.attendance.deleteMany({ where: { athleteId } });
+    await tx.groupMembership.deleteMany({ where: { athleteId } });
+    await tx.athlete.delete({ where: { id: athleteId } });
+  });
+
+  await audit(req, 'ATHLETE_DELETED', 'Athlete', athleteId, {
+    fullName: athlete.fullName,
+  });
+
+  return res.status(204).end();
+}));
+
 module.exports = router;

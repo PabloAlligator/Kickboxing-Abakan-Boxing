@@ -7,7 +7,7 @@ const argon2 = require('argon2');
 const prisma = require('../lib/prisma');
 
 function validLogin(value) {
-  return /^[a-z0-9._-]{3,32}$/i.test(value);
+  return /^[a-z0-9._-]{3,64}$/i.test(value);
 }
 
 async function main() {
@@ -22,7 +22,7 @@ async function main() {
 
   try {
     const name = (await terminal.question('Имя владельца: ')).trim();
-    const login = (await terminal.question('Логин (3–32 символа): ')).trim().toLowerCase();
+    const login = (await terminal.question('Логин (3–64 символа): ')).trim().toLowerCase();
     stdout.write('Пароль (минимум 12 символов): ');
     muted = true;
     const password = await terminal.question('');
@@ -30,7 +30,7 @@ async function main() {
     stdout.write('\n');
 
     if (!name) throw new Error('Имя обязательно');
-    if (!validLogin(login)) throw new Error('Логин: латиница, цифры, точка, дефис или подчёркивание; 3–32 символа');
+    if (!validLogin(login)) throw new Error('Логин: латиница, цифры, точка, дефис или подчёркивание; 3–64 символа');
     if (password.length < 12 || password.length > 128) {
       throw new Error('Пароль должен содержать от 12 до 128 символов');
     }
@@ -42,7 +42,7 @@ async function main() {
       create: { name, login, passwordHash, role: 'OWNER', active: true },
     });
     await prisma.session.deleteMany({ where: { data: { contains: `"id":${owner.id}` } } });
-    stdout.write(`Владелец ${owner.login} создан/обновлён.\n`);
+    stdout.write(`Готово: владелец ${owner.name} (${owner.login}), id=${owner.id}, создан/обновлён.\n`);
   } finally {
     muted = false;
     terminal.close();

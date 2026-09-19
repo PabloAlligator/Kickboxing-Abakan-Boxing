@@ -14,9 +14,11 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "node scripts/ensure-sqlite.js && prisma migrate deploy",
     "owner:create": "node scripts/create-owner.js",
-    "test": "node --test --test-concurrency=1 tests/*.test.js",
-    "test:security": "node --test tests/security.test.js",
-    "audit:prod": "npm audit --omit=dev"
+    "test": "node scripts/run-tests.js",
+    "test:security": "node scripts/run-tests.js tests/security.test.js",
+    "audit:prod": "npm audit --omit=dev",
+    "db:info": "node scripts/db-info.js",
+    "prisma:seed": "node prisma/seed.js"
   },
   "engines": {
     "node": ">=22.0.0"

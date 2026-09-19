@@ -27,17 +27,20 @@ const PUBLIC_DIR = path.join(ROOT, 'public');
 const ADMIN_DIR = path.join(ROOT, 'admin-pages');
 const SITE_DIR = path.join(ROOT, 'site');
 
+// Этап 1 Control: клиенту показываем только базовые разделы.
+// Остальные страницы не удалены — их можно включать поэтапно,
+// просто возвращая нужное имя в ADMIN_PAGES и ENABLED_ROUTES на frontend.
 const ADMIN_PAGES = new Set([
   'dashboard',
   'athletes',
-  'groups',
-  'attendance',
-  'payments',
-  'calendar',
+  // 'groups',
+  // 'attendance',
+  // 'payments',
+  // 'calendar',
   'personal',
-  'tasks',
-  'expenses',
-  'statistics',
+  // 'tasks',
+  // 'expenses',
+  // 'statistics',
   'settings',
 ]);
 
@@ -47,8 +50,6 @@ function validateProductionEnv() {
     'DATABASE_URL',
     'SESSION_SECRET',
     'APP_ORIGIN',
-    'PUBLIC_PHONE',
-    'TELEGRAM_URL',
     'VAPID_PUBLIC_KEY',
     'VAPID_PRIVATE_KEY',
     'VAPID_SUBJECT',
@@ -74,25 +75,11 @@ function validateProductionEnv() {
       'APP_ORIGIN в production должен быть HTTPS origin без пути и завершающего слеша',
     );
   }
-  if (!/^\+?\d[\d\s()\-]{8,24}$/.test(String(process.env.PUBLIC_PHONE))) {
-    throw new Error('PUBLIC_PHONE: укажите корректный телефон клуба');
-  }
   if (!String(process.env.DATABASE_URL).startsWith('file:')) {
     throw new Error('DATABASE_URL должен использовать SQLite URL file:...');
   }
   if (!/^mailto:.+@.+\..+$/.test(String(process.env.VAPID_SUBJECT))) {
     throw new Error('VAPID_SUBJECT должен быть mailto:адрес');
-  }
-  try {
-    const telegram = new URL(String(process.env.TELEGRAM_URL));
-    if (
-      telegram.protocol !== 'https:' ||
-      !['t.me', 'telegram.me'].includes(telegram.hostname.toLowerCase())
-    ) {
-      throw new Error();
-    }
-  } catch {
-    throw new Error('TELEGRAM_URL должен быть корректной HTTPS-ссылкой t.me');
   }
 }
 

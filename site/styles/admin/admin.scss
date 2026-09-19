@@ -1205,10 +1205,16 @@ tr:last-child td {
     border-radius: 50%;
     font-size: 0;
   }
-  .admin-header__notification svg {
+  // .admin-header__notification svg {
+  //   width: 18px;
+  //   height: 18px;
+  //   margin-left: 6px;
+  // }
+
+  .admin-header__notification img {
     width: 18px;
     height: 18px;
-    margin-left: 6px;
+    margin-left: 7px;
   }
 
   .admin-sidebar {
@@ -1265,7 +1271,7 @@ tr:last-child td {
     left: 0;
     z-index: 60;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     min-height: 66px;
     padding: 5px 6px max(5px, env(safe-area-inset-bottom));
     border-top: 1px solid $admin-line;
